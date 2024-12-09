@@ -76,7 +76,9 @@
 
 
 	<ItemGroup>
-		<Folder Include="MVVM\View\" />
+		<MauiXaml Update="MVVM\Views\WelcomePage.xaml">
+			<Generator>MSBuild:Compile</Generator>
+		</MauiXaml>
 	</ItemGroup>
 
 </Project>

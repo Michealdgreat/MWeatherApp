@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MWeatherApp.MVVM.Model
+namespace MWeatherApp.MVVM.Models
 {
     public class GeoPosition
     {

@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MWeatherApp.MVVM.ViewModel.Base
+namespace MWeatherApp.MVVM.ViewModels.Base
 {
     public partial class BaseViewModel : ObservableObject
     {
