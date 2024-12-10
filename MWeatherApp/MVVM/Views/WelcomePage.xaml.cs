@@ -1,10 +1,13 @@
-﻿namespace MWeatherApp.MVVM.Views
+﻿using MWeatherApp.MVVM.ViewModels;
+
+namespace MWeatherApp.MVVM.Views
 {
     public partial class WelcomePage : ContentPage
     {
-        public WelcomePage()
+        public WelcomePage(WelcomeViewModel welcomeViewModel)
         {
             InitializeComponent();
+            BindingContext = welcomeViewModel;
         }
     }
 }
