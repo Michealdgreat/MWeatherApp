@@ -16,9 +16,7 @@ namespace MWeatherApp.MVVM.Models
         public string? EnglishName { get; set; }
         public Region? Region { get; set; }
         public Country? Country { get; set; }
-
         public GeoPosition? GeoPosition { get; set; }
-
         public ParentCity? ParentCity { get; set; }
 
     }
