@@ -1,4 +1,7 @@
-﻿using System;
+﻿
+using MWeatherApp.MVVM.Models;
+using Newtonsoft.Json;
+using System;
 using System.Collections.ObjectModel;
 using System.Net.Http;
 using System.Text.Json;
@@ -10,12 +13,9 @@ namespace MWeatherApp.Service
     {
         private readonly KeyService _keyService = keyService;
 
-        private static readonly JsonSerializerOptions JsonSerializerOptions = new()
-        {
-            PropertyNameCaseInsensitive = true
-        };
 
-        public async Task<ObservableCollection<T>?> GetListOfForecast<T>(string endPoint, string cityId)
+
+        public async Task<List<T>?> GetListOfForecast<T>(string endPoint, string cityId)
         {
             try
             {
@@ -27,7 +27,11 @@ namespace MWeatherApp.Service
                 if (response.IsSuccessStatusCode)
                 {
                     var responseData = await response.Content.ReadAsStringAsync();
-                    return JsonSerializer.Deserialize<ObservableCollection<T>>(responseData, JsonSerializerOptions);
+
+                    List<T> forecasts = JsonConvert.DeserializeObject<List<T>>(responseData);
+
+
+                    return forecasts;
                 }
                 else
                 {
@@ -45,16 +49,36 @@ namespace MWeatherApp.Service
             try
             {
 
-
                 var apiKey = await _keyService.GetTokenAsync();
-                string url = $"{endPoint}search?apiKey={apiKey}&q={query}";
+                string url = $"{endPoint}{apiKey}&q={query}";
                 using var client = new HttpClient();
                 var response = await client.GetAsync(url);
 
                 if (response.IsSuccessStatusCode)
                 {
-                    var responseData = await response.Content.ReadAsStringAsync();
-                    return JsonSerializer.Deserialize<T>(responseData, JsonSerializerOptions);
+
+                    try
+                    {
+                        var responseData = await response.Content.ReadAsStringAsync();
+
+                        List<T> locations = JsonConvert.DeserializeObject<List<T>>(responseData);
+
+                        var location = locations.FirstOrDefault();
+
+                        if (location == null)
+                        {
+                            throw new Exception("No location data found.");
+                        }
+
+                        return location;
+
+                    }
+                    catch (Exception ex)
+                    {
+
+                        return default;
+                    }
+
                 }
                 else
                 {
@@ -64,6 +88,7 @@ namespace MWeatherApp.Service
             }
             catch (Exception ex)
             {
+
                 return default;
             }
         }
@@ -81,7 +106,9 @@ namespace MWeatherApp.Service
                 if (response.IsSuccessStatusCode)
                 {
                     var responseData = await response.Content.ReadAsStringAsync();
-                    return JsonSerializer.Deserialize<T>(responseData, JsonSerializerOptions);
+                    var result = JsonConvert.DeserializeObject<List<T>>(responseData).FirstOrDefault();
+
+                    return result;
                 }
                 else
                 {
