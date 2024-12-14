@@ -3,6 +3,7 @@ using Microsoft.Extensions.Logging;
 using MWeatherApp.MVVM.ViewModels;
 using MWeatherApp.MVVM.Views;
 using MWeatherApp.Service;
+using SkiaSharp.Views.Maui.Controls.Hosting;
 
 namespace MWeatherApp
 {
@@ -14,6 +15,7 @@ namespace MWeatherApp
             builder
                 .UseMauiApp<App>()
                 .UseMauiCommunityToolkit()
+                .UseSkiaSharp()
                 .ConfigureFonts(fonts =>
                 {
                     fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");
@@ -22,6 +24,8 @@ namespace MWeatherApp
                     fonts.AddFont("Intermedium.ttf", "Intermedium");
                     fonts.AddFont("Interregular.ttf", "Interregular");
                     fonts.AddFont("Interthin.ttf", "Interthin");
+                    fonts.AddFont("Interextralight.ttf", "Interextralight");
+                    fonts.AddFont("mweatherapp.ttf", "mweatherappicons");
 
                 });
 
@@ -34,6 +38,7 @@ namespace MWeatherApp
 
             builder.Services.AddSingleton<GetService>();
             builder.Services.AddSingleton<KeyService>();
+            builder.Services.AddSingleton<SharedService>();
 
 
 

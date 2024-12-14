@@ -10,7 +10,6 @@ namespace MWeatherApp
 
             Routing.RegisterRoute(nameof(WelcomePage), typeof(WelcomePage));
 
-
         }
     }
 }
