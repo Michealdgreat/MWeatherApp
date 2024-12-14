@@ -1,26 +1,170 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <ContentPage
-    x:Class="MWeatherApp.MVVM.Views.HomePage"
-    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
-    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    xmlns:d="http://schemas.microsoft.com/dotnet/2021/maui/design"
-    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:vm="clr-namespace:MWeatherApp.MVVM.ViewModels"
-    xmlns:local="clr-namespace:MWeatherApp.MVVM.Views"
-    x:DataType="vm:HomeViewModel"
-    mc:Ignorable="d">
+  x:Class="MWeatherApp.MVVM.Views.HomePage"
+  xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+  xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+  xmlns:d="http://schemas.microsoft.com/dotnet/2021/maui/design"
+  xmlns:local="clr-namespace:MWeatherApp.MVVM.Views"
+  xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+  xmlns:models="clr-namespace:MWeatherApp.MVVM.Models"
+  xmlns:services="clr-namespace:MWeatherApp.Service"
+  xmlns:skia="clr-namespace:SkiaSharp.Extended.UI.Controls;assembly=SkiaSharp.Extended.UI"
+  xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+  xmlns:vm="clr-namespace:MWeatherApp.MVVM.ViewModels"
+  x:DataType="vm:HomeViewModel"
+  Loaded="ContentPage_Appearing"
+  Shell.BackgroundColor="#C6EEF0"
+  Shell.NavBarIsVisible="False"
+  mc:Ignorable="d">
+  <ContentPage.Behaviors>
+    <toolkit:StatusBarBehavior StatusBarColor="#C6EEF0" StatusBarStyle="{AppThemeBinding Dark='DarkContent', Light='LightContent'}" />
+  </ContentPage.Behaviors>
+  <ContentPage.Resources>
+    <ResourceDictionary>
+      <services:StringConverters x:Key="TakeFirstThreeLetters" />
+      <services:FahrenheitToCelsiusConverter x:Key="FahrenheitToCelsiusConverter" />
+    </ResourceDictionary>
+  </ContentPage.Resources>
+  <ScrollView>
 
-    <ContentPage.Content>
-        <StackLayout>
-            <Label
-                HorizontalOptions="Center"
-                Text="Welcome to .NET MAUI!!!"
-                TextColor="Purple"
-                VerticalOptions="Center"/>
+    <Grid>
+      <Grid.Background>
+        <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+          <GradientStop Offset="0.2" Color="#C6EEF0" />
+          <GradientStop Offset="0.5" Color="#D9D9D9" />
+          <GradientStop Offset="1.1" Color="#C6EEF0" />
+        </LinearGradientBrush>
+      </Grid.Background>
+      <skia:SKLottieView
+        Margin="0,60,0,30"
+        HeightRequest="200"
+        Opacity=".8"
+        RepeatCount="-1"
+        RepeatMode="Restart"
+        Scale="2"
+        Source="winteranimation.json" />
 
-            <Button Command="{Binding GetCityCommand}" HeightRequest="100"/>
-        </StackLayout>
+      <StackLayout>
+
+        <!--#region TODAY-->
+        <Label
+          Margin="0,20,0,0"
+          FontFamily="Interregular"
+          FontSize="20"
+          HorizontalOptions="Center"
+          Text="Today"
+          TextColor="{StaticResource Black}" />
+        <!--#endregion-->
+
+        <!--#region TEMPERATURE-->
+        <HorizontalStackLayout Margin="0,-50,0,0" HorizontalOptions="Center">
+          <Label
+            Padding="0"
+            FontFamily="Interextralight"
+            FontSize="300"
+            HorizontalOptions="Center"
+            Text="{Binding OneLocation.Temperature.Metric.Value}"
+            TextColor="{StaticResource Black}"
+            VerticalOptions="Start" />
+
+          <Label
+            Margin="5,50,0,0"
+            FontFamily="Intermedium"
+            FontSize="50"
+            HorizontalOptions="Center"
+            Text="o"
+            TextColor="{StaticResource Black}" />
+        </HorizontalStackLayout>
+        <!--#endregion-->
+
+        <!--#region CITY NAME-->
+        <Label
+          Margin="0,-80,0,0"
+          FontFamily="Interthin"
+          FontSize="230"
+          HorizontalOptions="Center"
+          Text="{Binding CityDetails.LocalizedName, Converter={StaticResource TakeFirstThreeLetters}}"
+          TextColor="{StaticResource Black}"
+          TextTransform="Uppercase" />
+        <!--#endregion-->
+
+        <!--#region REGION NAME-->
+        <Label
+          Margin="0,-50,0,0"
+          FontFamily="Interthin"
+          FontSize="25"
+          HorizontalOptions="Center"
+          Text="{Binding CityDetails.AdministrativeArea.LocalizedName}"
+          TextColor="{StaticResource Black}" />
+        <!--#endregion-->
+
+        <!--#region ABOUT CITY-->
+        <Label
+          Margin="20"
+          FontFamily="Interthin"
+          FontSize="16"
+          HorizontalOptions="Center"
+          Text="Kokkolan kaupungissa asuu noin 48 000 henkilöä ja laajemmin koko seudulla asuu noin 54 000 henkilöä. Asukasluvultaan Kokkola on Suomen 22:nneksi suurin kaupunki. Kokkolan naapurikunnat ovat Halsua, Kalajoki, Kannus, Kaustinen, Kruunupyy, Lestijärvi, Luoto sekä Toholampi. Pietarsaari sijaitsee 37 kilometriä Kokkolasta lounaaseen."
+          TextColor="{StaticResource Black}" />
+        <!--#endregion-->
+
+        <!--#region FORCASE REGION-->
+        <CollectionView Margin="10,0,10,20" ItemsSource="{Binding ForecastModels}">
+          <CollectionView.ItemsLayout>
+            <LinearItemsLayout Orientation="Horizontal" />
+          </CollectionView.ItemsLayout>
+          <CollectionView.ItemTemplate>
+            <DataTemplate x:DataType="models:WeatherForecastModel">
+              <StackLayout Padding="10">
+                <Label
+                  FontFamily="Interlight"
+                  FontSize="Body"
+                  Text="{Binding DateTime, StringFormat='{}{0:HH:mm}'}"
+                  TextColor="{StaticResource Black}" />
+                <Label
+                  FontFamily="Interlight"
+                  FontSize="Body"
+                  Text="{Binding Temperature.Value, Converter={StaticResource FahrenheitToCelsiusConverter}}"
+                  TextColor="{StaticResource Black}" />
+
+                <HorizontalStackLayout Spacing="10" VerticalOptions="Center">
+                  <Image HorizontalOptions="Center">
+                    <Image.Source>
+                      <FontImageSource
+                        FontFamily="mweatherappicons"
+                        Glyph="&#xE811;"
+                        Size="30"
+                        Color="{StaticResource Black}" />
+                    </Image.Source>
+                  </Image>
+
+                </HorizontalStackLayout>
 
 
-    </ContentPage.Content>
+                <Label
+                  FontFamily="Interthin"
+                  FontSize="Body"
+                  Text="{Binding PrecipitationProbability, StringFormat='{0}%'}"
+                  TextColor="{StaticResource Black}" />
+
+                <Label
+                  FontFamily="Interthin"
+                  FontSize="Body"
+                  Text="{Binding IconPhrase}"
+                  TextColor="{StaticResource Black}" />
+
+              </StackLayout>
+            </DataTemplate>
+          </CollectionView.ItemTemplate>
+        </CollectionView>
+
+        <!--#endregion-->
+
+      </StackLayout>
+    </Grid>
+
+
+  </ScrollView>
+
+
 </ContentPage>

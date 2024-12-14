@@ -1,21 +1,39 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <ContentPage
-    x:Class="MWeatherApp.MVVM.Views.WelcomePage"
-    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
-    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    xmlns:d="http://schemas.microsoft.com/dotnet/2021/maui/design"
-    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:vm="clr-namespace:MWeatherApp.MVVM.ViewModels"
-    xmlns:local="clr-namespace:MWeatherApp.MVVM.Views"
-    x:DataType="vm:WelcomeViewModel"
-    mc:Ignorable="d">
-    <ContentPage.Content>
-        <StackLayout>
-            <Label
-                HorizontalOptions="Center"
-                Text="Welcome to .NET MAUI!!!"
-                TextColor="Purple"
-                VerticalOptions="Center"/>
-        </StackLayout>
-    </ContentPage.Content>
+  x:Class="MWeatherApp.MVVM.Views.WelcomePage"
+  xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+  xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+  xmlns:EntryHelper="clr-namespace:MWeatherApp.Service"
+  xmlns:d="http://schemas.microsoft.com/dotnet/2021/maui/design"
+  xmlns:local="clr-namespace:MWeatherApp.MVVM.Views"
+  xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+  xmlns:skia="clr-namespace:SkiaSharp.Extended.UI.Controls;assembly=SkiaSharp.Extended.UI"
+  xmlns:vm="clr-namespace:MWeatherApp.MVVM.ViewModels"
+  Padding="20"
+  x:DataType="vm:WelcomeViewModel"
+  mc:Ignorable="d">
+
+  <StackLayout>
+    <Label
+      HorizontalOptions="Center"
+      Text="Welcome to .NET MAUI!!!"
+      TextColor="Purple"
+      VerticalOptions="Center" />
+
+    <EntryHelper:EntryHelper
+      FontSize="20"
+      Placeholder="Enter your city"
+      Text="{Binding CityName}" />
+
+    <EntryHelper:EntryHelper
+      FontSize="20"
+      Placeholder="Enter your Key"
+      Text="{Binding APIKey}" />
+
+    <Button
+      Command="{Binding GetWeatherCommand}"
+      IsEnabled="{Binding IsSubmitButtonEnabled}"
+      Text="Get Current Weather" />
+  </StackLayout>
+
 </ContentPage>
