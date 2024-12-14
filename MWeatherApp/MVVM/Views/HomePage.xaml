@@ -25,24 +25,26 @@
       <services:FahrenheitToCelsiusConverter x:Key="FahrenheitToCelsiusConverter" />
     </ResourceDictionary>
   </ContentPage.Resources>
-  <ScrollView>
+  <ScrollView HorizontalScrollBarVisibility="Never" VerticalScrollBarVisibility="Never">
 
     <Grid>
       <Grid.Background>
         <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
           <GradientStop Offset="0.2" Color="#C6EEF0" />
-          <GradientStop Offset="0.5" Color="#D9D9D9" />
+          <GradientStop Offset="0.5" Color="#D7CACA" />
           <GradientStop Offset="1.1" Color="#C6EEF0" />
         </LinearGradientBrush>
       </Grid.Background>
       <skia:SKLottieView
-        Margin="0,60,0,30"
+        Margin="0,200,0,30"
+        Padding="0"
         HeightRequest="200"
         Opacity=".8"
         RepeatCount="-1"
         RepeatMode="Restart"
-        Scale="2"
-        Source="winteranimation.json" />
+        Scale="3"
+        Source="winteranimation.json"
+        VerticalOptions="Start" />
 
       <StackLayout>
 
@@ -57,29 +59,40 @@
         <!--#endregion-->
 
         <!--#region TEMPERATURE-->
-        <HorizontalStackLayout Margin="0,-50,0,0" HorizontalOptions="Center">
+        <HorizontalStackLayout Margin="-10,-50,0,0" HorizontalOptions="Center">
           <Label
             Padding="0"
             FontFamily="Interextralight"
-            FontSize="300"
+            FontSize="250"
             HorizontalOptions="Center"
             Text="{Binding OneLocation.Temperature.Metric.Value}"
             TextColor="{StaticResource Black}"
             VerticalOptions="Start" />
 
           <Label
-            Margin="5,50,0,0"
-            FontFamily="Intermedium"
+            Margin="0,20,0,0"
+            FontFamily="OpenSansRegular"
             FontSize="50"
             HorizontalOptions="Center"
             Text="o"
-            TextColor="{StaticResource Black}" />
+            TextColor="{StaticResource Black}"
+            VerticalOptions="Start" />
         </HorizontalStackLayout>
         <!--#endregion-->
 
+        <Image Margin="0,-40,0,0" HorizontalOptions="Center">
+          <Image.Source>
+            <FontImageSource
+              FontFamily="mweatherappicons"
+              Glyph="&#xF031;"
+              Size="30"
+              Color="#035987" />
+          </Image.Source>
+        </Image>
+
         <!--#region CITY NAME-->
         <Label
-          Margin="0,-80,0,0"
+          Margin="-20,-60,0,0"
           FontFamily="Interthin"
           FontSize="230"
           HorizontalOptions="Center"
@@ -91,25 +104,27 @@
         <!--#region REGION NAME-->
         <Label
           Margin="0,-50,0,0"
-          FontFamily="Interthin"
-          FontSize="25"
+          FontFamily="Interregular"
+          FontSize="30"
           HorizontalOptions="Center"
-          Text="{Binding CityDetails.AdministrativeArea.LocalizedName}"
-          TextColor="{StaticResource Black}" />
+          Text="{Binding CityDetails.AdministrativeArea.LocalizedName, StringFormat='- {0} -'}"
+          TextColor="#035987" />
         <!--#endregion-->
 
         <!--#region ABOUT CITY-->
         <Label
-          Margin="20"
-          FontFamily="Interthin"
-          FontSize="16"
+          Margin="20,5,20,0"
+          CharacterSpacing="0.2"
+          FontFamily="Interlight"
+          FontSize="Body"
           HorizontalOptions="Center"
-          Text="Kokkolan kaupungissa asuu noin 48 000 henkilöä ja laajemmin koko seudulla asuu noin 54 000 henkilöä. Asukasluvultaan Kokkola on Suomen 22:nneksi suurin kaupunki. Kokkolan naapurikunnat ovat Halsua, Kalajoki, Kannus, Kaustinen, Kruunupyy, Lestijärvi, Luoto sekä Toholampi. Pietarsaari sijaitsee 37 kilometriä Kokkolasta lounaaseen."
+          HorizontalTextAlignment="Center"
+          Text="{Binding CityDescription}"
           TextColor="{StaticResource Black}" />
         <!--#endregion-->
 
         <!--#region FORCASE REGION-->
-        <CollectionView Margin="10,0,10,20" ItemsSource="{Binding ForecastModels}">
+        <CollectionView Margin="10,20,10,20" ItemsSource="{Binding ForecastModels}">
           <CollectionView.ItemsLayout>
             <LinearItemsLayout Orientation="Horizontal" />
           </CollectionView.ItemsLayout>
@@ -142,16 +157,16 @@
 
 
                 <Label
-                  FontFamily="Interthin"
+                  FontFamily="Interlight"
                   FontSize="Body"
                   Text="{Binding PrecipitationProbability, StringFormat='{0}%'}"
-                  TextColor="{StaticResource Black}" />
+                  TextColor="#035987" />
 
                 <Label
-                  FontFamily="Interthin"
+                  FontFamily="Interlight"
                   FontSize="Body"
                   Text="{Binding IconPhrase}"
-                  TextColor="{StaticResource Black}" />
+                  TextColor="#035987" />
 
               </StackLayout>
             </DataTemplate>

@@ -5,6 +5,9 @@ using MWeatherApp.MVVM.Models;
 using MWeatherApp.MVVM.ViewModels.Base;
 using MWeatherApp.Service;
 using System.Collections.ObjectModel;
+using System.Net.Http.Headers;
+using System.Net.Http.Json;
+using System.Text.Json;
 
 namespace MWeatherApp.MVVM.ViewModels
 {
@@ -12,7 +15,7 @@ namespace MWeatherApp.MVVM.ViewModels
     public partial class HomeViewModel : BaseViewModel
     {
         private readonly GetService _getService;
-
+        private readonly KeyService _keyService;
         [ObservableProperty]
         private LocationModel? cityDetails;
 
@@ -28,17 +31,26 @@ namespace MWeatherApp.MVVM.ViewModels
         [ObservableProperty]
         private string? cityId;
 
-        public HomeViewModel(GetService getService)
+        [ObservableProperty]
+        private string? cityDescription;
+
+        public HomeViewModel(GetService getService, KeyService keyService)
         {
-            ForecastModels = new ObservableCollection<WeatherForecastModel>();
+            ForecastModels = [];
             _getService = getService;
+            _keyService = keyService;
         }
 
         public async Task InitializeAsync()
         {
+            // _keyService.DeleteToken();
+
             if (!string.IsNullOrEmpty(CityName))
             {
                 await GetCity();
+
+               CityDescription =  await OpenAIService.GetCityDescription(CityName);
+
             }
         }
 
@@ -66,5 +78,7 @@ namespace MWeatherApp.MVVM.ViewModels
 
             ForecastModels = result;
         }
+
+
     }
 }

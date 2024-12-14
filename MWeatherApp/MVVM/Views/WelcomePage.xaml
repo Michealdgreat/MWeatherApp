@@ -12,18 +12,26 @@
   Padding="20"
   x:DataType="vm:WelcomeViewModel"
   mc:Ignorable="d">
+  <ContentPage.Background>
 
-  <StackLayout>
-    <Label
-      HorizontalOptions="Center"
-      Text="Welcome to .NET MAUI!!!"
-      TextColor="Purple"
-      VerticalOptions="Center" />
+    <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+      <GradientStop Offset="0.2" Color="#C6EEF0" />
+      <GradientStop Offset="0.5" Color="#D9D9D9" />
+      <GradientStop Offset="1.1" Color="#C6EEF0" />
+    </LinearGradientBrush>
+  </ContentPage.Background>
+
+  <StackLayout Padding="30" VerticalOptions="Center">
+
 
     <EntryHelper:EntryHelper
       FontSize="20"
+      HorizontalOptions="Center"
       Placeholder="Enter your city"
-      Text="{Binding CityName}" />
+      PlaceholderColor="{StaticResource Gray300}"
+      Text="{Binding CityName}"
+      TextColor="Black" />
+
 
     <EntryHelper:EntryHelper
       FontSize="20"
@@ -32,8 +40,10 @@
 
     <Button
       Command="{Binding GetWeatherCommand}"
+      HeightRequest="50"
       IsEnabled="{Binding IsSubmitButtonEnabled}"
-      Text="Get Current Weather" />
+      Text="Get Current Weather"
+      WidthRequest="300" />
   </StackLayout>
 
 </ContentPage>

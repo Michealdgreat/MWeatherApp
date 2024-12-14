@@ -43,6 +43,7 @@ namespace MWeatherApp.MVVM.ViewModels
         [RelayCommand]
         private async Task GetWeather()
         {
+
             _sharedService.InitializeAppShell();
             await Shell.Current.GoToAsync($"///{nameof(HomePage)}?CityName={CityName}", true);
 
