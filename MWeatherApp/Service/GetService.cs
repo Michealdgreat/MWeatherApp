@@ -15,7 +15,7 @@ namespace MWeatherApp.Service
 
 
 
-        public async Task<List<T>?> GetListOfForecast<T>(string endPoint, string cityId)
+        public async Task<ObservableCollection<T>?> GetListOfForecast<T>(string endPoint, string cityId)
         {
             try
             {
@@ -28,7 +28,7 @@ namespace MWeatherApp.Service
                 {
                     var responseData = await response.Content.ReadAsStringAsync();
 
-                    List<T> forecasts = JsonConvert.DeserializeObject<List<T>>(responseData);
+                    ObservableCollection<T> forecasts = JsonConvert.DeserializeObject<ObservableCollection<T>>(responseData);
 
 
                     return forecasts;
@@ -38,7 +38,7 @@ namespace MWeatherApp.Service
                     return default;
                 }
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 return default;
             }
@@ -73,7 +73,7 @@ namespace MWeatherApp.Service
                         return location;
 
                     }
-                    catch (Exception ex)
+                    catch (Exception)
                     {
 
                         return default;
@@ -86,7 +86,7 @@ namespace MWeatherApp.Service
                     return default;
                 }
             }
-            catch (Exception ex)
+            catch (Exception)
             {
 
                 return default;
@@ -116,7 +116,7 @@ namespace MWeatherApp.Service
                     return default;
                 }
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 return default;
             }
