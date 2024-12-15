@@ -3,6 +3,7 @@ using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using MWeatherApp.MVVM.Models;
 using MWeatherApp.MVVM.ViewModels.Base;
+using MWeatherApp.MVVM.Views;
 using MWeatherApp.Service;
 using System.Collections.ObjectModel;
 using System.Net.Http.Headers;
@@ -18,6 +19,7 @@ namespace MWeatherApp.MVVM.ViewModels
         private readonly GetService _getService;
         private readonly KeyService _keyService;
         private readonly OpenAIService _openAIService;
+        private readonly WelcomeViewModel _welcomeViewModel;
         [ObservableProperty]
         private LocationModel? cityDetails;
 
@@ -52,13 +54,14 @@ namespace MWeatherApp.MVVM.ViewModels
         [ObservableProperty]
         private string? cityDescription;
 
-        public HomeViewModel(GetService getService, KeyService keyService, OpenAIService openAIService)
+        public HomeViewModel(GetService getService, KeyService keyService, OpenAIService openAIService, WelcomeViewModel welcomeViewModel)
         {
             ForecastModels = [];
             DailyForecasts = [];
             _getService = getService;
             _keyService = keyService;
             _openAIService = openAIService;
+            _welcomeViewModel = welcomeViewModel;
         }
 
         public async Task InitializeAsync()
@@ -143,6 +146,17 @@ namespace MWeatherApp.MVVM.ViewModels
             WeatherInformationIsReady = true;
 
         }
+
+
+        [RelayCommand]
+        private void SettingIcon()
+        {
+            
+            var welcomeNavigationPage = new NavigationPage(new WelcomePage(_welcomeViewModel));
+
+            Application.Current.MainPage = welcomeNavigationPage;
+        }
+
 
 
     }

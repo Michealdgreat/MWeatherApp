@@ -13,31 +13,23 @@
   Padding="20"
   x:DataType="vm:WelcomeViewModel"
   HideSoftInputOnTapped="True"
+  Shell.BackgroundColor="#C6EEF0"
+  Shell.NavBarIsVisible="False"
+  Shell.TabBarIsVisible="False"
   mc:Ignorable="d">
   <ContentPage.Behaviors>
-    <toolkit:StatusBarBehavior
-      StatusBarColor="#C6EEF0"
-      StatusBarStyle="{AppThemeBinding Dark='DarkContent', Light='LightContent'}" />
+    <toolkit:StatusBarBehavior StatusBarColor="#C6EEF0" StatusBarStyle="{AppThemeBinding Dark='DarkContent', Light='LightContent'}" />
   </ContentPage.Behaviors>
   <ContentPage.Background>
-    <LinearGradientBrush
-      StartPoint="1,0"
-      EndPoint="1,1">
-      <GradientStop
-        Offset="0.2"
-        Color="#C6EEF0" />
-      <GradientStop
-        Offset="0.5"
-        Color="#D9D9D9" />
-      <GradientStop
-        Offset="1.1"
-        Color="#C6EEF0" />
+    <LinearGradientBrush StartPoint="1,0" EndPoint="1,1">
+      <GradientStop Offset="0.2" Color="#C6EEF0" />
+      <GradientStop Offset="0.5" Color="#D9D9D9" />
+      <GradientStop Offset="1.1" Color="#C6EEF0" />
     </LinearGradientBrush>
   </ContentPage.Background>
 
-  <ScrollView>
-    <VerticalStackLayout
-      VerticalOptions="Center">
+  <ScrollView HorizontalScrollBarVisibility="Never" VerticalScrollBarVisibility="Never">
+    <VerticalStackLayout VerticalOptions="Center">
 
       <StackLayout
         Padding="30"
@@ -50,8 +42,7 @@
           WidthRequest="500">
 
           <Border.StrokeShape>
-            <RoundRectangle
-              CornerRadius="30" />
+            <RoundRectangle CornerRadius="30" />
           </Border.StrokeShape>
 
           <VerticalStackLayout
@@ -87,8 +78,7 @@
           WidthRequest="500">
 
           <Border.StrokeShape>
-            <RoundRectangle
-              CornerRadius="30" />
+            <RoundRectangle CornerRadius="30" />
           </Border.StrokeShape>
 
           <VerticalStackLayout
@@ -119,8 +109,7 @@
 
       </StackLayout>
 
-      <VerticalStackLayout
-        IsVisible="{Binding GetWeatherCommandArea}">
+      <VerticalStackLayout IsVisible="{Binding GetWeatherCommandArea}">
 
         <Label
           FontSize="Body"
@@ -150,12 +139,9 @@
           WidthRequest="300" />
       </VerticalStackLayout>
 
-      <Image
-        Margin="0,70,20,0"
-        IsVisible="{Binding SettingGearicon}">
+      <Image Margin="0,70,20,0" IsVisible="{Binding SettingGearicon}">
         <Image.GestureRecognizers>
-          <TapGestureRecognizer
-            Command="{Binding EnableSettingsCommand}" />
+          <TapGestureRecognizer Command="{Binding EnableSettingsCommand}" />
         </Image.GestureRecognizers>
         <Image.Source>
           <FontImageSource

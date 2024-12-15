@@ -67,7 +67,6 @@
 
       </Grid>
 
-
       <skia:SKLottieView
         Margin="0,200,0,30"
         Padding="0"
@@ -100,7 +99,6 @@
         </BoxView.Background>
       </BoxView>
 
-
       <StackLayout
         IsVisible="{Binding WeatherInformationIsReady}"
         Spacing="-20">
@@ -121,11 +119,24 @@
           HorizontalOptions="Start"
           Text="{Binding CurrentDate}"
           TextColor="{StaticResource Black}" />
+
+        <Image Margin="0,-20,30,0" VerticalOptions="Start" HorizontalOptions="End">
+          <Image.GestureRecognizers>
+            <TapGestureRecognizer Command="{ Binding SettingIconCommand}" />
+          </Image.GestureRecognizers>
+          <Image.Source>
+            <FontImageSource
+              FontFamily="mweatherappfonts"
+              Glyph="&#xE819;"
+              Size="25"
+              Color="{StaticResource Gray600}" />
+          </Image.Source>
+        </Image>
         <!--#endregion-->
 
         <!--#region CITY NAME-->
         <Image
-          Margin="20"
+          Margin="0,30,0,30"
           HorizontalOptions="Center">
           <Image.Source>
             <FontImageSource
@@ -180,8 +191,6 @@
         <toolkit:Expander>
           <toolkit:Expander.Header>
 
-
-
             <Button
               Margin="0,20,0,0"
               Padding="10,0,10,0"
@@ -191,8 +200,6 @@
               HorizontalOptions="CenterAndExpand"
               Text="{Binding CityDetails.LocalizedName, StringFormat='Tell me about  {0}'}"
               TextColor="White" />
-
-
 
 
           </toolkit:Expander.Header>
@@ -346,8 +353,8 @@
                             FontFamily="RubikMedium"
                             FontSize="Body"
                             HorizontalOptions="Start"
-                            Text="Low "
-                            TextColor="{StaticResource Black}" />
+                            Text="Low:  "
+                            TextColor="{StaticResource Gray900}" />
 
                           <Label
                             FontFamily="RubikLight"
@@ -359,8 +366,8 @@
                             Margin="10,0,0,0"
                             FontFamily="RubikMedium"
                             FontSize="Body"
-                            Text="High "
-                            TextColor="{StaticResource Black}" />
+                            Text=" High: "
+                            TextColor="{StaticResource Gray950}" />
 
                           <Label
                             FontFamily="RubikLight"
