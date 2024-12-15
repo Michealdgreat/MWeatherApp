@@ -13,13 +13,11 @@ namespace MWeatherApp.Service
     {
         private readonly KeyService _keyService = keyService;
 
-
-
         public async Task<ObservableCollection<T>?> GetListOfForecast<T>(string endPoint, string cityId)
         {
             try
             {
-                var apiKey = await _keyService.GetTokenAsync();
+                var apiKey = await _keyService.GetTokenAsync("api_key");
                 using var client = new HttpClient();
                 var url = $"{endPoint}{cityId}?apikey={apiKey}";
                 var response = await client.GetAsync(url);
@@ -49,7 +47,7 @@ namespace MWeatherApp.Service
             try
             {
 
-                var apiKey = await _keyService.GetTokenAsync();
+                var apiKey = await _keyService.GetTokenAsync("api_key");
                 string url = $"{endPoint}{apiKey}&q={query}";
                 using var client = new HttpClient();
                 var response = await client.GetAsync(url);
@@ -98,7 +96,7 @@ namespace MWeatherApp.Service
             try
             {
 
-                var apiKey = await _keyService.GetTokenAsync();
+                var apiKey = await _keyService.GetTokenAsync("api_key");
                 using var client = new HttpClient();
                 var url = $"{endPoint}{query}?apikey={apiKey}";
                 var response = await client.GetAsync(url);

@@ -11,26 +11,17 @@ using System.Threading.Tasks;
 namespace MWeatherApp.Service
 {
 
-    public static class OpenAIService
+    public class OpenAIService(KeyService keyService)
     {
-        private static readonly IConfiguration _configuration;
+        private readonly KeyService _keyService = keyService;
 
-        static OpenAIService()
+        public async Task<string> GetCityDescription(string cityName)
         {
-            var builder = new ConfigurationBuilder()
-                .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
-                .AddJsonFile("secrets.json", optional: true, reloadOnChange: true);
-
-            _configuration = builder.Build();
-        }
-
-        public static async Task<string> GetCityDescription(string cityName)
-        {
-            if (string.IsNullOrEmpty(cityName)) return null;
+            if (string.IsNullOrEmpty(cityName)) return null!;
 
             using var httpClient = new HttpClient();
 
-            var apiKey = _configuration["OpenAI:ApiKey"];
+            var apiKey = await _keyService.GetTokenAsync("Open_api_key");
             if (string.IsNullOrEmpty(apiKey))
             {
                 throw new Exception("API key not found in configuration. Please check your secrets or environment variables.");
@@ -86,10 +77,10 @@ namespace MWeatherApp.Service
                     return "No description available.";
                 }
             }
-            catch (Exception ex)
+            catch (Exception)
             {
-                // Handle parsing errors
-                throw new Exception("Error parsing the API response.", ex);
+
+                return "No description available.";
             }
         }
     }

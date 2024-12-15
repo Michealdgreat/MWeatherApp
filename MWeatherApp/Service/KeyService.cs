@@ -8,21 +8,20 @@ namespace MWeatherApp.Service
 {
     public class KeyService
     {
-        private const string ApiKey = "api_key";
 
-        public async Task SaveTokenAsync(string token)
+        public async Task SaveTokenAsync(string key, string token)
         {
-            await SecureStorage.Default.SetAsync(ApiKey, token);
+            await SecureStorage.Default.SetAsync(key, token);
         }
 
-        public async Task<string?> GetTokenAsync()
+        public async Task<string?> GetTokenAsync(string apiKey)
         {
-            return await SecureStorage.Default.GetAsync(ApiKey);
+            return await SecureStorage.Default.GetAsync(apiKey);
         }
 
-        public void DeleteToken()
+        public void DeleteToken(string key)
         {
-            SecureStorage.Default.Remove(ApiKey);
+            SecureStorage.Default.Remove(key);
         }
 
     }
