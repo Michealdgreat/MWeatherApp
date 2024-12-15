@@ -6,6 +6,7 @@ using System.Collections.ObjectModel;
 using System.Net.Http;
 using System.Text.Json;
 using System.Threading.Tasks;
+using static MWeatherApp.MVVM.Models.DailyForecastModel;
 
 namespace MWeatherApp.Service
 {
@@ -39,6 +40,33 @@ namespace MWeatherApp.Service
             catch (Exception)
             {
                 return default;
+            }
+        }
+
+        public async Task<WeatherForecast?> GetDailyWeatherForecast(string endPoint, string cityId)
+        {
+            try
+            {
+                var apiKey = await _keyService.GetTokenAsync("api_key");
+                using var client = new HttpClient();
+                var url = $"{endPoint}{cityId}?apikey={apiKey}&language=en-us&details=false&metric=false";
+                var response = await client.GetAsync(url);
+
+                if (response.IsSuccessStatusCode)
+                {
+                    var responseData = await response.Content.ReadAsStringAsync();
+                    WeatherForecast forecast = JsonConvert.DeserializeObject<WeatherForecast>(responseData);
+
+                    return forecast;
+                }
+                else
+                {
+                    return null;
+                }
+            }
+            catch (Exception)
+            {
+                return null;
             }
         }
 
