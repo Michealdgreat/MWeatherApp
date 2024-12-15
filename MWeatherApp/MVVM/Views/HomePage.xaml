@@ -46,7 +46,7 @@
         Source="winteranimation.json"
         VerticalOptions="Start" />
 
-      <StackLayout>
+      <StackLayout Spacing="-20">
 
         <!--#region TODAY-->
         <Label
@@ -59,18 +59,16 @@
         <!--#endregion-->
 
         <!--#region TEMPERATURE-->
-        <HorizontalStackLayout Margin="-10,-50,0,0" HorizontalOptions="Center">
+        <HorizontalStackLayout HorizontalOptions="Center">
           <Label
-            Padding="0"
-            FontFamily="Interextralight"
-            FontSize="250"
+            FontFamily="Interlight"
+            FontSize="200"
             HorizontalOptions="Center"
             Text="{Binding OneLocation.Temperature.Metric.Value}"
             TextColor="{StaticResource Black}"
             VerticalOptions="Start" />
 
           <Label
-            Margin="0,20,0,0"
             FontFamily="OpenSansRegular"
             FontSize="50"
             HorizontalOptions="Center"
@@ -80,7 +78,7 @@
         </HorizontalStackLayout>
         <!--#endregion-->
 
-        <Image Margin="0,-40,0,0" HorizontalOptions="Center">
+        <Image HorizontalOptions="Center">
           <Image.Source>
             <FontImageSource
               FontFamily="mweatherappicons"
@@ -92,8 +90,8 @@
 
         <!--#region CITY NAME-->
         <Label
-          Margin="-20,-60,0,0"
-          FontFamily="Interthin"
+          Margin="-20,-30,0,0"
+          FontFamily="Interthinnew"
           FontSize="230"
           HorizontalOptions="Center"
           Text="{Binding CityDetails.LocalizedName, Converter={StaticResource TakeFirstThreeLetters}}"
@@ -103,7 +101,7 @@
 
         <!--#region REGION NAME-->
         <Label
-          Margin="0,-50,0,0"
+          Margin="0,-20,0,0"
           FontFamily="Interregular"
           FontSize="30"
           HorizontalOptions="Center"
@@ -113,10 +111,11 @@
 
         <!--#region ABOUT CITY-->
         <Label
-          Margin="20,5,20,0"
+          Margin="20,20,20,0"
           CharacterSpacing="0.2"
           FontFamily="Interlight"
           FontSize="Body"
+          LineHeight="1.1"
           HorizontalOptions="Center"
           HorizontalTextAlignment="Center"
           Text="{Binding CityDescription}"
@@ -124,7 +123,7 @@
         <!--#endregion-->
 
         <!--#region FORCASE REGION-->
-        <CollectionView Margin="10,20,10,20" ItemsSource="{Binding ForecastModels}">
+        <CollectionView Margin="10,40,10,20" ItemsSource="{Binding ForecastModels}">
           <CollectionView.ItemsLayout>
             <LinearItemsLayout Orientation="Horizontal" />
           </CollectionView.ItemsLayout>
@@ -132,39 +131,36 @@
             <DataTemplate x:DataType="models:WeatherForecastModel">
               <StackLayout Padding="10">
                 <Label
-                  FontFamily="Interlight"
+                  FontFamily="InterBold"
                   FontSize="Body"
+                  HorizontalOptions="Center"
                   Text="{Binding DateTime, StringFormat='{}{0:HH:mm}'}"
                   TextColor="{StaticResource Black}" />
                 <Label
                   FontFamily="Interlight"
                   FontSize="Body"
+                  HorizontalOptions="Center"
                   Text="{Binding Temperature.Value, Converter={StaticResource FahrenheitToCelsiusConverter}}"
                   TextColor="{StaticResource Black}" />
 
-                <HorizontalStackLayout Spacing="10" VerticalOptions="Center">
-                  <Image HorizontalOptions="Center">
-                    <Image.Source>
-                      <FontImageSource
-                        FontFamily="mweatherappicons"
-                        Glyph="&#xE811;"
-                        Size="30"
-                        Color="{StaticResource Black}" />
-                    </Image.Source>
-                  </Image>
 
-                </HorizontalStackLayout>
 
+                <Image
+                  HorizontalOptions="Center"
+                  Source="precipitation"
+                  WidthRequest="20" />
 
                 <Label
                   FontFamily="Interlight"
                   FontSize="Body"
+                  HorizontalOptions="Center"
                   Text="{Binding PrecipitationProbability, StringFormat='{0}%'}"
                   TextColor="#035987" />
 
                 <Label
                   FontFamily="Interlight"
                   FontSize="Body"
+                  HorizontalOptions="Center"
                   Text="{Binding IconPhrase}"
                   TextColor="#035987" />
 

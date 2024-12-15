@@ -16,6 +16,7 @@ namespace MWeatherApp.MVVM.ViewModels
     {
         private readonly GetService _getService;
         private readonly KeyService _keyService;
+        private readonly OpenAIService _openAIService;
         [ObservableProperty]
         private LocationModel? cityDetails;
 
@@ -34,11 +35,12 @@ namespace MWeatherApp.MVVM.ViewModels
         [ObservableProperty]
         private string? cityDescription;
 
-        public HomeViewModel(GetService getService, KeyService keyService)
+        public HomeViewModel(GetService getService, KeyService keyService, OpenAIService openAIService)
         {
             ForecastModels = [];
             _getService = getService;
             _keyService = keyService;
+            _openAIService = openAIService;
         }
 
         public async Task InitializeAsync()
@@ -49,7 +51,7 @@ namespace MWeatherApp.MVVM.ViewModels
             {
                 await GetCity();
 
-               CityDescription =  await OpenAIService.GetCityDescription(CityName);
+                CityDescription = await _openAIService.GetCityDescription(CityName);
 
             }
         }
