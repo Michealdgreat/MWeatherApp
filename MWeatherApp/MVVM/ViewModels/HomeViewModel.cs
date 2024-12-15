@@ -35,6 +35,12 @@ namespace MWeatherApp.MVVM.ViewModels
         private string? cityName;
 
         [ObservableProperty]
+        private string? greeting;
+
+        [ObservableProperty]
+        private string? currentDate;
+
+        [ObservableProperty]
         private string? cityId;
 
         [ObservableProperty]
@@ -62,8 +68,30 @@ namespace MWeatherApp.MVVM.ViewModels
             }
         }
 
+        private void GreetUser()
+        {
+            var hour = DateTime.Now.Hour;
+            if (hour < 12)
+            {
+                Greeting = "Good morning";
+            }
+            else if (hour < 18)
+            {
+                Greeting = "Good afternoon";
+            }
+            else
+            {
+                Greeting = "Good day";
+            }
+
+            CurrentDate = DateTime.Now.ToString("dddd, dd, MMM");
+
+        }
+
         private async Task GetCity()
         {
+            GreetUser();
+
             if (string.IsNullOrEmpty(CityName)) return;
 
             CityDetails = await _getService.GetCityDetails<LocationModel>(EndPoints.cityDetail, CityName);
