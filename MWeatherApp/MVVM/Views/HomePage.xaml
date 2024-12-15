@@ -3,6 +3,7 @@
   x:Class="MWeatherApp.MVVM.Views.HomePage"
   xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
   xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+  xmlns:acrylicui="clr-namespace:Xe.AcrylicView;assembly=Xe.AcrylicView"
   xmlns:d="http://schemas.microsoft.com/dotnet/2021/maui/design"
   xmlns:local="clr-namespace:MWeatherApp.MVVM.Views"
   xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
@@ -17,36 +18,22 @@
   Shell.NavBarIsVisible="False"
   mc:Ignorable="d">
   <ContentPage.Behaviors>
-    <toolkit:StatusBarBehavior
-      StatusBarColor="#C6EEF0"
-      StatusBarStyle="{AppThemeBinding Dark='DarkContent', Light='LightContent'}" />
+    <toolkit:StatusBarBehavior StatusBarColor="#C6EEF0" StatusBarStyle="{AppThemeBinding Dark='DarkContent', Light='LightContent'}" />
   </ContentPage.Behaviors>
   <ContentPage.Resources>
     <ResourceDictionary>
-      <services:StringConverters
-        x:Key="TakeFirstThreeLetters" />
-      <services:FahrenheitToCelsiusConverter
-        x:Key="FahrenheitToCelsiusConverter" />
+      <services:StringConverters x:Key="TakeFirstThreeLetters" />
+      <services:FahrenheitToCelsiusConverter x:Key="FahrenheitToCelsiusConverter" />
     </ResourceDictionary>
   </ContentPage.Resources>
-  <ScrollView
-    HorizontalScrollBarVisibility="Never"
-    VerticalScrollBarVisibility="Never">
+  <ScrollView HorizontalScrollBarVisibility="Never" VerticalScrollBarVisibility="Never">
 
     <Grid>
       <Grid.Background>
-        <LinearGradientBrush
-          StartPoint="0,0"
-          EndPoint="1,1">
-          <GradientStop
-            Offset="0.2"
-            Color="#C6EEF0" />
-          <GradientStop
-            Offset="0.5"
-            Color="#D7CACA" />
-          <GradientStop
-            Offset="1.1"
-            Color="#C6EEF0" />
+        <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+          <GradientStop Offset="0.2" Color="#C6EEF0" />
+          <GradientStop Offset="0.5" Color="#D7CACA" />
+          <GradientStop Offset="1.1" Color="#C6EEF0" />
         </LinearGradientBrush>
       </Grid.Background>
       <skia:SKLottieView
@@ -60,12 +47,25 @@
         Source="winteranimationtwo.json"
         VerticalOptions="Start" />
 
-      <StackLayout
-        Spacing="-20">
+      <!--<acrylicui:AcrylicView
+
+        BorderThickness="0"
+        CornerRadius="0,0,10,10"
+        EffectStyle="Light"
+
+        HeightRequest="1400"
+       HorizontalOptions="FillAndExpand"
+        VerticalOptions="FillAndExpand"
+        TintColor="White"
+        Opacity="0.5"
+        TintOpacity="1"
+       />-->
+
+      <StackLayout Spacing="-20">
 
         <!--#region TODAY-->
         <Label
-          Margin="0,20,0,0"
+          Margin="0,20,0,20"
           FontFamily="Interregular"
           FontSize="20"
           HorizontalOptions="Center"
@@ -73,53 +73,53 @@
           TextColor="{StaticResource Black}" />
         <!--#endregion-->
 
-        <!--#region TEMPERATURE-->
-        <HorizontalStackLayout
+        
+        
+        <!--#region CITY NAME-->
+        <Image
+          Margin="20"
           HorizontalOptions="Center">
+          <Image.Source>
+            <FontImageSource
+              FontFamily="mweatherappicons"
+              Glyph="&#xF031;"
+              Size="20"
+              Color="Black" />
+          </Image.Source>
+        </Image>
+
+
+        <Label
+          FontFamily="RubikMedium"
+          FontSize="41"
+          HorizontalOptions="Center"
+          Text="{Binding CityDetails.LocalizedName}"
+          TextColor="{StaticResource Black}"
+          TextTransform="Uppercase" />
+        <!--#endregion-->
+
+        <!--#region TEMPERATURE-->
+        <HorizontalStackLayout HorizontalOptions="Center">
           <Label
-            FontFamily="Interlight"
-            FontSize="200"
-            HorizontalOptions="Center"
+            FontFamily="RubikSemiBold"
+            FontSize="170"
             Text="{Binding OneLocation.Temperature.Metric.Value}"
             TextColor="{StaticResource Black}"
             VerticalOptions="Start" />
 
           <Label
-            FontFamily="OpenSansRegular"
+            FontFamily="RubikLight"
             FontSize="50"
-            HorizontalOptions="Center"
             Text="o"
             TextColor="{StaticResource Black}"
             VerticalOptions="Start" />
         </HorizontalStackLayout>
         <!--#endregion-->
 
-        <Image
-          HorizontalOptions="Center">
-          <Image.Source>
-            <FontImageSource
-              FontFamily="mweatherappicons"
-              Glyph="&#xF031;"
-              Size="30"
-              Color="#035987" />
-          </Image.Source>
-        </Image>
-
-        <!--#region CITY NAME-->
-        <Label
-          Margin="-20,-30,0,0"
-          FontFamily="Interthinnew"
-          FontSize="230"
-          HorizontalOptions="Center"
-          Text="{Binding CityDetails.LocalizedName, Converter={StaticResource TakeFirstThreeLetters}}"
-          TextColor="{StaticResource Black}"
-          TextTransform="Uppercase" />
-        <!--#endregion-->
-
         <!--#region REGION NAME-->
         <Label
-          Margin="0,-20,0,0"
-          FontFamily="Interregular"
+          Margin="0,-30,0,0"
+          FontFamily="RubikLight"
           FontSize="30"
           HorizontalOptions="Center"
           Text="{Binding CityDetails.AdministrativeArea.LocalizedName, StringFormat='- {0} -'}"
@@ -130,28 +130,23 @@
         <Label
           Margin="20,20,20,0"
           CharacterSpacing="0.2"
-          FontFamily="Interlight"
+          FontFamily="RubikLight"
           FontSize="Body"
-          LineHeight="1.1"
           HorizontalOptions="Center"
           HorizontalTextAlignment="Center"
+          LineHeight="1.1"
           Text="{Binding CityDescription}"
           TextColor="{StaticResource Black}" />
         <!--#endregion-->
 
         <!--#region FORCASE REGION-->
-        <CollectionView
-          Margin="10,40,10,20"
-          ItemsSource="{Binding ForecastModels}">
+        <CollectionView Margin="10,40,10,20" ItemsSource="{Binding ForecastModels}">
           <CollectionView.ItemsLayout>
-            <LinearItemsLayout
-              Orientation="Horizontal" />
+            <LinearItemsLayout Orientation="Horizontal" />
           </CollectionView.ItemsLayout>
           <CollectionView.ItemTemplate>
-            <DataTemplate
-              x:DataType="models:WeatherForecastModel">
-              <StackLayout
-                Padding="10">
+            <DataTemplate x:DataType="models:WeatherForecastModel">
+              <StackLayout Padding="10">
                 <Label
                   FontFamily="InterBold"
                   FontSize="Body"
@@ -192,6 +187,130 @@
         </CollectionView>
 
         <!--#endregion-->
+
+        <!--#region DAILY FORCAST-->
+
+        <Border
+         
+          Margin="10"
+          Padding="10"
+          BackgroundColor="#22C6EEF0"
+          Stroke="#45FFFFFF">
+          <Border.StrokeShape>
+            <RoundRectangle
+              CornerRadius="10" />
+          </Border.StrokeShape>
+
+          <VerticalStackLayout>
+
+            <Label
+              Text="Next days"
+              Margin="20,0,0,0"
+              TextColor="#82035987"
+              FontFamily="RubikRegular"
+              FontSize="Large"
+              HorizontalOptions="Start" />
+
+            <CollectionView
+              Margin="10,20,10,20"
+              ItemsSource="{Binding DailyForecasts}">
+              <CollectionView.ItemsLayout>
+                <LinearItemsLayout
+                  Orientation="Vertical" />
+              </CollectionView.ItemsLayout>
+              <CollectionView.ItemTemplate>
+                <DataTemplate
+                  x:DataType="models:DailyForecast">
+
+                  <Grid
+                    ColumnDefinitions=".3*,.7*"
+                    ColumnSpacing="10">
+
+                    <Border
+                      Margin="0,0,0,10"
+                      Padding="10"
+                      BackgroundColor="#22C6EEF0"
+                      Stroke="#45FFFFFF">
+                      <Border.StrokeShape>
+                        <RoundRectangle
+                          CornerRadius="10" />
+                      </Border.StrokeShape>
+                      <Image
+                        Source="precipitation"
+                        WidthRequest="40" />
+                    </Border>
+
+                    <Border
+                      Grid.Column="1"
+                      Margin="0,0,0,10"
+                      Padding="10"
+                      BackgroundColor="#22C6EEF0"
+                      Stroke="#65FFFFFF">
+
+
+                      <Border.StrokeShape>
+                        <RoundRectangle
+                          CornerRadius="10" />
+                      </Border.StrokeShape>
+
+                      <StackLayout
+                        Padding="10"
+                        HorizontalOptions="StartAndExpand">
+                        <Label
+                          FontFamily="InterBold"
+                          FontSize="Body"
+                          Text="{Binding Date, StringFormat='{}{0:dddd, d MMM}'}"
+                          TextColor="{StaticResource PrimaryDark}" />
+
+                        <HorizontalStackLayout
+                          HorizontalOptions="Start">
+                          <Label
+                            FontFamily="RubikMedium"
+                            FontSize="Body"
+                            HorizontalOptions="Start"
+                            Text="Low "
+                            TextColor="{StaticResource Black}" />
+
+                          <Label
+                            FontFamily="RubikLight"
+                            FontSize="Body"
+                            Text="{Binding Temperature.Minimum.Value, Converter={StaticResource FahrenheitToCelsiusConverter}}"
+                            TextColor="{StaticResource Black}" />
+
+                          <Label
+                            Margin="10,0,0,0"
+                            FontFamily="RubikMedium"
+                            FontSize="Body"
+                            Text="High "
+                            TextColor="{StaticResource Black}" />
+
+                          <Label
+                            FontFamily="RubikLight"
+                            FontSize="Body"
+                            Text="{Binding Temperature.Maximum.Value, Converter={StaticResource FahrenheitToCelsiusConverter}}"
+                            TextColor="{StaticResource Black}" />
+                        </HorizontalStackLayout>
+                      </StackLayout>
+                    </Border>
+                  </Grid>
+
+
+
+                </DataTemplate>
+              </CollectionView.ItemTemplate>
+            </CollectionView>
+
+          </VerticalStackLayout>
+
+         
+
+        </Border>
+
+       
+
+
+        <!--#endregion-->
+
 
       </StackLayout>
     </Grid>

@@ -8,6 +8,7 @@ using System.Collections.ObjectModel;
 using System.Net.Http.Headers;
 using System.Net.Http.Json;
 using System.Text.Json;
+using static MWeatherApp.MVVM.Models.DailyForecastModel;
 
 namespace MWeatherApp.MVVM.ViewModels
 {
@@ -24,6 +25,10 @@ namespace MWeatherApp.MVVM.ViewModels
         private ObservableCollection<WeatherForecastModel>? forecastModels;
 
         [ObservableProperty]
+        private ObservableCollection<DailyForecast>? dailyForecasts;
+
+
+        [ObservableProperty]
         private OneLocation? oneLocation;
 
         [ObservableProperty]
@@ -38,6 +43,7 @@ namespace MWeatherApp.MVVM.ViewModels
         public HomeViewModel(GetService getService, KeyService keyService, OpenAIService openAIService)
         {
             ForecastModels = [];
+            DailyForecasts = [];
             _getService = getService;
             _keyService = keyService;
             _openAIService = openAIService;
@@ -76,9 +82,28 @@ namespace MWeatherApp.MVVM.ViewModels
         {
             if (CityDetails?.Key == null) return;
 
-            var result = await _getService.GetListOfForecast<WeatherForecastModel>(EndPoints.forecastENdpoint, CityDetails.Key);
+            var result = await _getService.GetListOfForecast<WeatherForecastModel>(EndPoints.forecastEndpoint, CityDetails.Key);
 
             ForecastModels = result;
+
+            await GetCityDailyForecast();
+        }
+
+        private async Task GetCityDailyForecast()
+        {
+            if (CityDetails?.Key == null) return;
+
+            var result = await _getService.GetDailyWeatherForecast(EndPoints.dailyForecastEndpoint, CityDetails.Key);
+
+            if (result?.DailyForecasts != null)
+            {
+                DailyForecasts.Clear();
+                foreach (var forecast in result.DailyForecasts)
+                {
+                    DailyForecasts.Add(forecast);
+                }
+            }
+
         }
 
 
