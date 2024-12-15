@@ -17,22 +17,36 @@
   Shell.NavBarIsVisible="False"
   mc:Ignorable="d">
   <ContentPage.Behaviors>
-    <toolkit:StatusBarBehavior StatusBarColor="#C6EEF0" StatusBarStyle="{AppThemeBinding Dark='DarkContent', Light='LightContent'}" />
+    <toolkit:StatusBarBehavior
+      StatusBarColor="#C6EEF0"
+      StatusBarStyle="{AppThemeBinding Dark='DarkContent', Light='LightContent'}" />
   </ContentPage.Behaviors>
   <ContentPage.Resources>
     <ResourceDictionary>
-      <services:StringConverters x:Key="TakeFirstThreeLetters" />
-      <services:FahrenheitToCelsiusConverter x:Key="FahrenheitToCelsiusConverter" />
+      <services:StringConverters
+        x:Key="TakeFirstThreeLetters" />
+      <services:FahrenheitToCelsiusConverter
+        x:Key="FahrenheitToCelsiusConverter" />
     </ResourceDictionary>
   </ContentPage.Resources>
-  <ScrollView HorizontalScrollBarVisibility="Never" VerticalScrollBarVisibility="Never">
+  <ScrollView
+    HorizontalScrollBarVisibility="Never"
+    VerticalScrollBarVisibility="Never">
 
     <Grid>
       <Grid.Background>
-        <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
-          <GradientStop Offset="0.2" Color="#C6EEF0" />
-          <GradientStop Offset="0.5" Color="#D7CACA" />
-          <GradientStop Offset="1.1" Color="#C6EEF0" />
+        <LinearGradientBrush
+          StartPoint="0,0"
+          EndPoint="1,1">
+          <GradientStop
+            Offset="0.2"
+            Color="#C6EEF0" />
+          <GradientStop
+            Offset="0.5"
+            Color="#D7CACA" />
+          <GradientStop
+            Offset="1.1"
+            Color="#C6EEF0" />
         </LinearGradientBrush>
       </Grid.Background>
       <skia:SKLottieView
@@ -43,10 +57,11 @@
         RepeatCount="-1"
         RepeatMode="Restart"
         Scale="3"
-        Source="winteranimation.json"
+        Source="winteranimationtwo.json"
         VerticalOptions="Start" />
 
-      <StackLayout Spacing="-20">
+      <StackLayout
+        Spacing="-20">
 
         <!--#region TODAY-->
         <Label
@@ -59,7 +74,8 @@
         <!--#endregion-->
 
         <!--#region TEMPERATURE-->
-        <HorizontalStackLayout HorizontalOptions="Center">
+        <HorizontalStackLayout
+          HorizontalOptions="Center">
           <Label
             FontFamily="Interlight"
             FontSize="200"
@@ -78,7 +94,8 @@
         </HorizontalStackLayout>
         <!--#endregion-->
 
-        <Image HorizontalOptions="Center">
+        <Image
+          HorizontalOptions="Center">
           <Image.Source>
             <FontImageSource
               FontFamily="mweatherappicons"
@@ -123,13 +140,18 @@
         <!--#endregion-->
 
         <!--#region FORCASE REGION-->
-        <CollectionView Margin="10,40,10,20" ItemsSource="{Binding ForecastModels}">
+        <CollectionView
+          Margin="10,40,10,20"
+          ItemsSource="{Binding ForecastModels}">
           <CollectionView.ItemsLayout>
-            <LinearItemsLayout Orientation="Horizontal" />
+            <LinearItemsLayout
+              Orientation="Horizontal" />
           </CollectionView.ItemsLayout>
           <CollectionView.ItemTemplate>
-            <DataTemplate x:DataType="models:WeatherForecastModel">
-              <StackLayout Padding="10">
+            <DataTemplate
+              x:DataType="models:WeatherForecastModel">
+              <StackLayout
+                Padding="10">
                 <Label
                   FontFamily="InterBold"
                   FontSize="Body"
