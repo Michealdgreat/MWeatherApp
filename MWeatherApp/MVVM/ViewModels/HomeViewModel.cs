@@ -35,6 +35,12 @@ namespace MWeatherApp.MVVM.ViewModels
         private string? cityName;
 
         [ObservableProperty]
+        private bool weatherInformationIsReady = false;
+
+        [ObservableProperty]
+        private bool weatherInformationLoading = true;
+
+        [ObservableProperty]
         private string? greeting;
 
         [ObservableProperty]
@@ -131,6 +137,10 @@ namespace MWeatherApp.MVVM.ViewModels
                     DailyForecasts.Add(forecast);
                 }
             }
+
+
+            WeatherInformationLoading = false;
+            WeatherInformationIsReady = true;
 
         }
 
