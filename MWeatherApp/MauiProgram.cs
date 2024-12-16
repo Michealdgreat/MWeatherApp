@@ -54,8 +54,8 @@ namespace MWeatherApp
             builder.Services.AddSingleton<WelcomePage>();
             builder.Services.AddSingleton<OnboardingPage>();
 
-            builder.Services.AddSingleton<HomeViewModel>();
-            builder.Services.AddSingleton<WelcomeViewModel>();
+            builder.Services.AddTransient<HomeViewModel>();
+            builder.Services.AddTransient<WelcomeViewModel>();
             builder.Services.AddSingleton<OnboardingViewModel>();
 
             builder.Services.AddSingleton<GetService>();

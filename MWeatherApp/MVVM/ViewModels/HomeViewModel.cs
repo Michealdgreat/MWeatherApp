@@ -75,6 +75,7 @@ namespace MWeatherApp.MVVM.ViewModels
 
             if (!string.IsNullOrEmpty(CityName))
             {
+
                 await GetCity();
 
                 CityDescription = await _openAIService.GetCityDescription(CityName);

@@ -12,8 +12,11 @@ namespace MWeatherApp.MVVM.Views
 
         }
 
-        private async void ContentPage_Appearing(object sender, EventArgs e)
+
+        protected async override void OnAppearing()
         {
+            base.OnAppearing();
+
             if (BindingContext is HomeViewModel viewModel)
             {
                 await viewModel.InitializeAsync();

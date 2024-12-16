@@ -13,33 +13,48 @@
   xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
   xmlns:vm="clr-namespace:MWeatherApp.MVVM.ViewModels"
   x:DataType="vm:HomeViewModel"
-  Loaded="ContentPage_Appearing"
   Shell.BackgroundColor="#C6EEF0"
   Shell.NavBarIsVisible="False"
   mc:Ignorable="d">
   <ContentPage.Behaviors>
-    <toolkit:StatusBarBehavior StatusBarColor="#C6EEF0" StatusBarStyle="{AppThemeBinding Dark='DarkContent', Light='LightContent'}" />
+    <toolkit:StatusBarBehavior
+      StatusBarColor="#C6EEF0"
+      StatusBarStyle="{AppThemeBinding Dark='DarkContent', Light='LightContent'}" />
   </ContentPage.Behaviors>
   <ContentPage.Resources>
     <ResourceDictionary>
-      <services:StringConverters x:Key="TakeFirstThreeLetters" />
-      <services:FahrenheitToCelsiusConverter x:Key="FahrenheitToCelsiusConverter" />
-      <services:StringToUriConverter x:Key="StringToUriConverter" />
+      <services:StringConverters
+        x:Key="TakeFirstThreeLetters" />
+      <services:FahrenheitToCelsiusConverter
+        x:Key="FahrenheitToCelsiusConverter" />
+      <services:StringToUriConverter
+        x:Key="StringToUriConverter" />
 
     </ResourceDictionary>
   </ContentPage.Resources>
-  <ScrollView HorizontalScrollBarVisibility="Never" VerticalScrollBarVisibility="Never">
+  <ScrollView
+    HorizontalScrollBarVisibility="Never"
+    VerticalScrollBarVisibility="Never">
 
     <Grid>
       <Grid.Background>
-        <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
-          <GradientStop Offset="0.2" Color="#C6EEF0" />
-          <GradientStop Offset="0.5" Color="#D7CACA" />
-          <GradientStop Offset="1.1" Color="#C6EEF0" />
+        <LinearGradientBrush
+          StartPoint="0,0"
+          EndPoint="1,1">
+          <GradientStop
+            Offset="0.2"
+            Color="#C6EEF0" />
+          <GradientStop
+            Offset="0.5"
+            Color="#D7CACA" />
+          <GradientStop
+            Offset="1.1"
+            Color="#C6EEF0" />
         </LinearGradientBrush>
       </Grid.Background>
 
-      <Grid IsVisible="{Binding WeatherInformationLoading}">
+      <Grid
+        IsVisible="{Binding WeatherInformationLoading}">
 
         <skia:SKLottieView
           Padding="0"
@@ -66,17 +81,29 @@
         Source="winteranimationtwo.json"
         VerticalOptions="Start" />
 
-      <BoxView IsVisible="{Binding WeatherInformationIsReady}" Opacity=".5">
+      <BoxView
+        IsVisible="{Binding WeatherInformationIsReady}"
+        Opacity=".5">
         <BoxView.Background>
-          <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
-            <GradientStop Offset="0.2" Color="#C6EEF0" />
-            <GradientStop Offset="0.5" Color="#D7CACA" />
-            <GradientStop Offset="1.1" Color="#C6EEF0" />
+          <LinearGradientBrush
+            StartPoint="0,0"
+            EndPoint="1,1">
+            <GradientStop
+              Offset="0.2"
+              Color="#C6EEF0" />
+            <GradientStop
+              Offset="0.5"
+              Color="#D7CACA" />
+            <GradientStop
+              Offset="1.1"
+              Color="#C6EEF0" />
           </LinearGradientBrush>
         </BoxView.Background>
       </BoxView>
 
-      <StackLayout IsVisible="{Binding WeatherInformationIsReady}" Spacing="-20">
+      <StackLayout
+        IsVisible="{Binding WeatherInformationIsReady}"
+        Spacing="-20">
 
         <!--#region TODAY-->
         <Label
@@ -100,7 +127,8 @@
           HorizontalOptions="End"
           VerticalOptions="Start">
           <Image.GestureRecognizers>
-            <TapGestureRecognizer Command="{Binding SettingIconCommand}" />
+            <TapGestureRecognizer
+              Command="{Binding SettingIconCommand}" />
           </Image.GestureRecognizers>
           <Image.Source>
             <FontImageSource
@@ -113,7 +141,9 @@
         <!--#endregion-->
 
         <!--#region CITY NAME-->
-        <Image Margin="0,30,0,30" HorizontalOptions="Center">
+        <Image
+          Margin="0,30,0,30"
+          HorizontalOptions="Center">
           <Image.Source>
             <FontImageSource
               FontFamily="mweatherappicons"
@@ -127,6 +157,7 @@
         <Label
           FontFamily="RubikMedium"
           FontSize="41"
+          HorizontalTextAlignment="Center"
           HorizontalOptions="Center"
           Text="{Binding CityDetails.LocalizedName}"
           TextColor="{StaticResource Black}"
@@ -134,7 +165,8 @@
         <!--#endregion-->
 
         <!--#region TEMPERATURE-->
-        <HorizontalStackLayout HorizontalOptions="Center">
+        <HorizontalStackLayout
+          HorizontalOptions="Center">
           <Label
             FontFamily="RubikSemiBold"
             FontSize="170"
@@ -174,7 +206,8 @@
                 Stroke="#45FFFFFF"
                 WidthRequest="200">
                 <Border.StrokeShape>
-                  <RoundRectangle CornerRadius="10" />
+                  <RoundRectangle
+                    CornerRadius="10" />
                 </Border.StrokeShape>
 
                 <Grid>
@@ -192,11 +225,13 @@
                     Source="aigradient.json"
                     VerticalOptions="Center" />
 
-                  <BoxView BackgroundColor="#65035987" />
+                  <BoxView
+                    BackgroundColor="#65035987" />
                   <Label
                     BackgroundColor="#00035987"
                     FontFamily="RubikMedium"
                     FontSize="Body"
+                    HorizontalTextAlignment="Center"
                     HorizontalOptions="CenterAndExpand"
                     Text="{Binding CityDetails.LocalizedName, StringFormat='Tell me about  {0}'}"
                     TextColor="White"
@@ -207,7 +242,8 @@
             </StackLayout>
 
           </toolkit:Expander.Header>
-          <VerticalStackLayout Padding="10">
+          <VerticalStackLayout
+            Padding="10">
             <Label
               CharacterSpacing="0.2"
               FontFamily="RubikLight"
@@ -224,13 +260,18 @@
         <!--#endregion-->
 
         <!--#region FORCASE REGION-->
-        <CollectionView Margin="10,40,10,20" ItemsSource="{Binding ForecastModels}">
+        <CollectionView
+          Margin="10,40,10,20"
+          ItemsSource="{Binding ForecastModels}">
           <CollectionView.ItemsLayout>
-            <LinearItemsLayout Orientation="Horizontal" />
+            <LinearItemsLayout
+              Orientation="Horizontal" />
           </CollectionView.ItemsLayout>
           <CollectionView.ItemTemplate>
-            <DataTemplate x:DataType="models:WeatherForecastModel">
-              <StackLayout Padding="10">
+            <DataTemplate
+              x:DataType="models:WeatherForecastModel">
+              <StackLayout
+                Padding="10">
                 <Label
                   FontFamily="InterBold"
                   FontSize="Body"
@@ -244,7 +285,9 @@
                   Text="{Binding Temperature.Value, Converter={StaticResource FahrenheitToCelsiusConverter}}"
                   TextColor="{StaticResource Black}" />
 
-                <Image Source="{Binding IconPhrase, Converter={StaticResource StringToUriConverter}}" WidthRequest="30" />
+                <Image
+                  Source="{Binding IconPhrase, Converter={StaticResource StringToUriConverter}}"
+                  WidthRequest="30" />
 
                 <Label
                   FontFamily="Interlight"
@@ -275,7 +318,8 @@
           BackgroundColor="#22C6EEF0"
           Stroke="#45FFFFFF">
           <Border.StrokeShape>
-            <RoundRectangle CornerRadius="10" />
+            <RoundRectangle
+              CornerRadius="10" />
           </Border.StrokeShape>
 
           <VerticalStackLayout>
@@ -288,14 +332,20 @@
               Text="Next days"
               TextColor="#035987" />
 
-            <CollectionView Margin="10,20,10,20" ItemsSource="{Binding DailyForecasts}">
+            <CollectionView
+              Margin="10,20,10,20"
+              ItemsSource="{Binding DailyForecasts}">
               <CollectionView.ItemsLayout>
-                <LinearItemsLayout Orientation="Vertical" />
+                <LinearItemsLayout
+                  Orientation="Vertical" />
               </CollectionView.ItemsLayout>
               <CollectionView.ItemTemplate>
-                <DataTemplate x:DataType="models:DailyForecast">
+                <DataTemplate
+                  x:DataType="models:DailyForecast">
 
-                  <Grid ColumnDefinitions=".3*,.7*" ColumnSpacing="10">
+                  <Grid
+                    ColumnDefinitions=".3*,.7*"
+                    ColumnSpacing="10">
 
                     <Border
                       Margin="0,0,0,10"
@@ -303,12 +353,15 @@
                       BackgroundColor="#2241898D"
                       Stroke="#45FFFFFF">
                       <Border.StrokeShape>
-                        <RoundRectangle CornerRadius="10" />
+                        <RoundRectangle
+                          CornerRadius="10" />
                       </Border.StrokeShape>
 
                       <Grid>
 
-                        <Image Source="{Binding Day.IconPhrase, Converter={StaticResource StringToUriConverter}}" WidthRequest="50" />
+                        <Image
+                          Source="{Binding Day.IconPhrase, Converter={StaticResource StringToUriConverter}}"
+                          WidthRequest="50" />
 
                       </Grid>
 
@@ -323,17 +376,21 @@
 
 
                       <Border.StrokeShape>
-                        <RoundRectangle CornerRadius="10" />
+                        <RoundRectangle
+                          CornerRadius="10" />
                       </Border.StrokeShape>
 
-                      <StackLayout Padding="10" HorizontalOptions="StartAndExpand">
+                      <StackLayout
+                        Padding="10"
+                        HorizontalOptions="StartAndExpand">
                         <Label
                           FontFamily="InterBold"
                           FontSize="Body"
                           Text="{Binding Date, StringFormat='{}{0:dddd, d MMM}'}"
                           TextColor="{StaticResource PrimaryDark}" />
 
-                        <HorizontalStackLayout HorizontalOptions="Start">
+                        <HorizontalStackLayout
+                          HorizontalOptions="Start">
                           <Label
                             FontFamily="RubikMedium"
                             FontSize="Body"
