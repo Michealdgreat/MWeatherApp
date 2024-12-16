@@ -18,152 +18,200 @@
   Shell.TabBarIsVisible="False"
   mc:Ignorable="d">
   <ContentPage.Behaviors>
-    <toolkit:StatusBarBehavior StatusBarColor="#C6EEF0" StatusBarStyle="{AppThemeBinding Dark='DarkContent', Light='LightContent'}" />
+    <toolkit:StatusBarBehavior
+      StatusBarColor="#C6EEF0"
+      StatusBarStyle="{AppThemeBinding Dark='DarkContent', Light='LightContent'}" />
   </ContentPage.Behaviors>
   <ContentPage.Background>
-    <LinearGradientBrush StartPoint="1,0" EndPoint="1,1">
-      <GradientStop Offset="0.2" Color="#C6EEF0" />
-      <GradientStop Offset="0.5" Color="#D9D9D9" />
-      <GradientStop Offset="1.1" Color="#C6EEF0" />
+    <LinearGradientBrush
+      StartPoint="1,0"
+      EndPoint="1,1">
+      <GradientStop
+        Offset="0.2"
+        Color="#C6EEF0" />
+      <GradientStop
+        Offset="0.5"
+        Color="#D9D9D9" />
+      <GradientStop
+        Offset="1.1"
+        Color="#C6EEF0" />
     </LinearGradientBrush>
   </ContentPage.Background>
 
-  <ScrollView HorizontalScrollBarVisibility="Never" VerticalScrollBarVisibility="Never">
-    <VerticalStackLayout VerticalOptions="Center">
+  <ScrollView
+    HorizontalScrollBarVisibility="Never"
+    VerticalScrollBarVisibility="Never">
 
-      <StackLayout
-        Padding="30"
-        IsVisible="{Binding OpenSettingVisible}"
+    <VerticalStackLayout
+      VerticalOptions="Center">
+
+
+
+      <Grid
+        HeightRequest="100"
+        IsVisible="{Binding WeatherInformationLoading}">
+
+        <skia:SKLottieView
+          Padding="0"
+          HeightRequest="20"
+          HorizontalOptions="Center"
+          Opacity="1"
+          RepeatCount="-1"
+          RepeatMode="Restart"
+          Scale="2"
+          Source="loadingorange.json"
+          VerticalOptions="Center" />
+
+      </Grid>
+
+      <VerticalStackLayout
+        IsVisible="{Binding ControlArea}"
         VerticalOptions="Center">
 
-        <Border
-          Margin="0,10,0,30"
-          StrokeThickness="0"
-          WidthRequest="500">
+        <StackLayout
+          Padding="30"
+          IsVisible="{Binding OpenSettingVisible}"
+          VerticalOptions="Center">
 
-          <Border.StrokeShape>
-            <RoundRectangle CornerRadius="30" />
-          </Border.StrokeShape>
+          <Border
+            Margin="0,10,0,30"
+            StrokeThickness="0"
+            WidthRequest="500">
 
-          <VerticalStackLayout
-            Margin="20"
+            <Border.StrokeShape>
+              <RoundRectangle
+                CornerRadius="30" />
+            </Border.StrokeShape>
+
+            <VerticalStackLayout
+              Margin="20"
+              HorizontalOptions="Center"
+              Spacing="5">
+              <EntryHelper:EntryHelper
+                FontSize="20"
+                IsPassword="{Binding HideOpenApiKeyEntry}"
+                Placeholder=" OpenAI API Key"
+                PlaceholderColor="#34404040"
+                Text="{Binding OpenAPIKey}" />
+
+              <Button
+                Margin="10"
+                Padding="0"
+                Command="{Binding SaveOpenKeyCommand}"
+                CornerRadius="10"
+                FontAttributes="Bold"
+                FontFamily="Intermedium"
+                FontSize="Body"
+                IsEnabled="{Binding IsOpenKeySubmitButtonEnabled}"
+                Text="{Binding OpenApiSavedButton}"
+                TextColor="White"
+                WidthRequest="150" />
+            </VerticalStackLayout>
+
+          </Border>
+
+          <Border
+            Margin="0,10,0,30"
+            StrokeThickness="0"
+            WidthRequest="500">
+
+            <Border.StrokeShape>
+              <RoundRectangle
+                CornerRadius="30" />
+            </Border.StrokeShape>
+
+            <VerticalStackLayout
+              Margin="20"
+              HorizontalOptions="Center"
+              Spacing="5">
+              <EntryHelper:EntryHelper
+                FontSize="20"
+                IsPassword="{Binding HideApiKeyEntry}"
+                Placeholder="Accuweather API Key"
+                PlaceholderColor="#34404040"
+                Text="{Binding APIKey}" />
+
+              <Button
+                Margin="10"
+                Padding="0"
+                Command="{Binding SaveKeyCommand}"
+                CornerRadius="10"
+                FontFamily="Intermedium"
+                FontSize="Body"
+                IsEnabled="{Binding IsKeySubmitButtonEnabled}"
+                Text="Save"
+                TextColor="White"
+                WidthRequest="150" />
+            </VerticalStackLayout>
+
+          </Border>
+
+        </StackLayout>
+
+        <VerticalStackLayout
+          IsVisible="{Binding GetWeatherCommandArea}">
+
+          <Label
+            FontSize="Body"
+            FontFamily="Intermedium"
+            HorizontalTextAlignment="Center"
+            Text="{Binding OpenApiErrorMessage}"
+            TextColor="Red" />
+
+
+          <EntryHelper:EntryHelper
+            FontSize="20"
             HorizontalOptions="Center"
-            Spacing="5">
-            <EntryHelper:EntryHelper
-              FontSize="20"
-              IsPassword="{Binding HideOpenApiKeyEntry}"
-              Placeholder=" OpenAI API Key"
-              PlaceholderColor="#34404040"
-              Text="{Binding OpenAPIKey}" />
-
-            <Button
-              Margin="10"
-              Padding="0"
-              Command="{Binding SaveOpenKeyCommand}"
-              CornerRadius="10"
-              FontAttributes="Bold"
-              FontFamily="Intermedium"
-              FontSize="Body"
-              IsEnabled="{Binding IsOpenKeySubmitButtonEnabled}"
-              Text="{Binding OpenApiSavedButton}"
-              TextColor="White"
-              WidthRequest="150" />
-          </VerticalStackLayout>
-
-        </Border>
-
-        <Border
-          Margin="0,10,0,30"
-          StrokeThickness="0"
-          WidthRequest="500">
-
-          <Border.StrokeShape>
-            <RoundRectangle CornerRadius="30" />
-          </Border.StrokeShape>
-
-          <VerticalStackLayout
-            Margin="20"
-            HorizontalOptions="Center"
-            Spacing="5">
-            <EntryHelper:EntryHelper
-              FontSize="20"
-              IsPassword="{Binding HideApiKeyEntry}"
-              Placeholder="Accuweather API Key"
-              PlaceholderColor="#34404040"
-              Text="{Binding APIKey}" />
-
-            <Button
-              Margin="10"
-              Padding="0"
-              Command="{Binding SaveKeyCommand}"
-              CornerRadius="10"
-              FontFamily="Intermedium"
-              FontSize="Body"
-              IsEnabled="{Binding IsKeySubmitButtonEnabled}"
-              Text="Save"
-              TextColor="White"
-              WidthRequest="150" />
-          </VerticalStackLayout>
-
-        </Border>
-
-      </StackLayout>
-
-      <VerticalStackLayout IsVisible="{Binding GetWeatherCommandArea}">
-
-        <Label
-          FontSize="Body"
-          HorizontalTextAlignment="Center"
-          Text="{Binding OpenApierrorMessage}"
-          TextColor="Red" />
+            Placeholder="Enter your city"
+            PlaceholderColor="{StaticResource Gray300}"
+            Text="{Binding CityName}"
+            TextColor="Black" />
 
 
-        <EntryHelper:EntryHelper
-          FontSize="20"
-          HorizontalOptions="Center"
-          Placeholder="Enter your city"
-          PlaceholderColor="{StaticResource Gray300}"
-          Text="{Binding CityName}"
-          TextColor="Black" />
+          <Button
+            Margin="10"
+            Command="{Binding GetWeatherCommand}"
+            FontFamily="Intermedium"
+            FontSize="Body"
+            HeightRequest="50"
+            IsEnabled="{Binding IsSubmitButtonEnabled}"
+            Text="Get Current Weather"
+            TextColor="White"
+            WidthRequest="300" />
+        </VerticalStackLayout>
 
+        <Image
+          Margin="0,70,20,0"
+          IsVisible="{Binding SettingGearicon}">
+          <Image.GestureRecognizers>
+            <TapGestureRecognizer
+              Command="{Binding EnableSettingsCommand}" />
+          </Image.GestureRecognizers>
+          <Image.Source>
+            <FontImageSource
+              FontFamily="mweatherappfonts"
+              Glyph="&#xE819;"
+              Size="40"
+              Color="#035987" />
+          </Image.Source>
+        </Image>
 
         <Button
-          Margin="10"
-          Command="{Binding GetWeatherCommand}"
+          Margin="20"
+          Command="{Binding EnableSettingsCommand}"
           FontFamily="Intermedium"
           FontSize="Body"
-          HeightRequest="50"
-          IsEnabled="{Binding IsSubmitButtonEnabled}"
-          Text="Get Current Weather"
+          HeightRequest="20"
+          IsVisible="{Binding SettingButtonLabel}"
+          Text="{Binding SettingsButtonText}"
           TextColor="White"
-          WidthRequest="300" />
+          VerticalOptions="End"
+          WidthRequest="180" />
       </VerticalStackLayout>
 
-      <Image Margin="0,70,20,0" IsVisible="{Binding SettingGearicon}">
-        <Image.GestureRecognizers>
-          <TapGestureRecognizer Command="{Binding EnableSettingsCommand}" />
-        </Image.GestureRecognizers>
-        <Image.Source>
-          <FontImageSource
-            FontFamily="mweatherappfonts"
-            Glyph="&#xE819;"
-            Size="40"
-            Color="#035987" />
-        </Image.Source>
-      </Image>
-
-      <Button
-        Margin="20"
-        Command="{Binding EnableSettingsCommand}"
-        FontFamily="Intermedium"
-        FontSize="Body"
-        HeightRequest="20"
-        IsVisible="{Binding SettingButtonLabel}"
-        Text="{Binding SettingsButtonText}"
-        TextColor="White"
-        VerticalOptions="End"
-        WidthRequest="180" />
     </VerticalStackLayout>
+
+
   </ScrollView>
 
 

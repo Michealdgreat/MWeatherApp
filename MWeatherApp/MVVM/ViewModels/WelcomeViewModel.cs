@@ -1,5 +1,6 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using MWeatherApp.MVVM.Models;
 using MWeatherApp.MVVM.ViewModels.Base;
 using MWeatherApp.MVVM.Views;
 using MWeatherApp.Service;
@@ -7,11 +8,14 @@ using System.ComponentModel;
 
 namespace MWeatherApp.MVVM.ViewModels
 {
+
+    [QueryProperty(nameof(OpenApiErrorMessage), "OpenApiErrorMessage")]
+
     public partial class WelcomeViewModel : BaseViewModel
     {
         private readonly SharedService _sharedService;
         private readonly KeyService _keyService;
-
+        private readonly GetService _getService;
         [ObservableProperty]
         private string? cityName;
 
@@ -25,7 +29,7 @@ namespace MWeatherApp.MVVM.ViewModels
         private string? openApiSavedButton = "Save";
 
         [ObservableProperty]
-        private string? openApierrorMessage;
+        public string? openApiErrorMessage;
 
         [ObservableProperty]
         private string? weatherApierrorMessage;
@@ -58,13 +62,19 @@ namespace MWeatherApp.MVVM.ViewModels
         private bool hideOpenApiKeyEntry = false;
 
         [ObservableProperty]
+        private bool weatherInformationLoading = false;
+
+        [ObservableProperty]
+        private bool controlArea = true;
+
+        [ObservableProperty]
         private string settingsButtonText = "Open Settings";
 
-        public WelcomeViewModel(SharedService sharedService, KeyService keyService)
+        public WelcomeViewModel(SharedService sharedService, KeyService keyService, GetService getService)
         {
             _sharedService = sharedService;
             _keyService = keyService;
-
+            _getService = getService;
         }
 
         partial void OnCityNameChanged(string? value)
@@ -102,7 +112,7 @@ namespace MWeatherApp.MVVM.ViewModels
                 GetWeatherCommandArea = true;
                 SettingGearicon = true;
                 SettingsButtonText = "Open Settings";
-                OpenApierrorMessage = string.Empty;
+                OpenApiErrorMessage = string.Empty;
             }
             else
             {
@@ -111,7 +121,7 @@ namespace MWeatherApp.MVVM.ViewModels
                 GetWeatherCommandArea = false;
                 OpenSettingVisible = true;
                 SettingsButtonText = "Close Settings";
-                OpenApierrorMessage = string.Empty;
+                OpenApiErrorMessage = string.Empty;
             }
         }
 
@@ -156,14 +166,63 @@ namespace MWeatherApp.MVVM.ViewModels
         [RelayCommand]
         private async Task GetWeather()
         {
-            bool checkkeys = await CheckApiKeys();
 
-            if (checkkeys)
+            try
             {
-                _sharedService.InitializeAppShell();
-                await Shell.Current.GoToAsync($"///{nameof(HomePage)}?CityName={CityName}", true);
+                WeatherInformationLoading = true;
+                ControlArea = false;
+
+                bool checkkeys = await CheckApiKeys();
+                bool checkapiconnection = await CheckApiConnection();
+
+                if (!checkkeys)
+                {
+
+                    OpenApiErrorMessage = "API Key not found!";
+                    WeatherInformationLoading = false;
+                    ControlArea = true;
+
+                }
+
+                if (!checkapiconnection)
+                {
+
+                    OpenApiErrorMessage = $"Error retrieving the weather data for {CityName}. Please verify the spelling and try again.";
+                    WeatherInformationLoading = false;
+                    ControlArea = true;
+
+                }
+                else
+                {
+                    WeatherInformationLoading = false;
+                    ControlArea = true;
+                    await Shell.Current.GoToAsync($"{nameof(HomePage)}?CityName={CityName}", true);
+                }
+
+
+
+
+            }
+            catch (Exception)
+            {
+
+                OpenApiErrorMessage = "Something went wrong";
+                WeatherInformationLoading = false;
+                ControlArea = true;
+
             }
 
+        }
+        private async Task<bool> CheckApiConnection()
+        {
+            var result = await _getService.GetCityDetails<LocationModel>(EndPoints.cityDetail, CityName);
+
+            if (result != null)
+            {
+                return true;
+            }
+
+            return false;
         }
 
         private async Task<bool> CheckApiKeys()
@@ -173,7 +232,6 @@ namespace MWeatherApp.MVVM.ViewModels
 
             if (checkopenapi == null || checkweatherapi == null)
             {
-                OpenApierrorMessage = "Please Open settings below and Set your Weather and API key";
 
                 return false;
             }
@@ -181,7 +239,6 @@ namespace MWeatherApp.MVVM.ViewModels
             {
                 return true;
             }
-
 
         }
     }

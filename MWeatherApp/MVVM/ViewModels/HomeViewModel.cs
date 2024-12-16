@@ -20,6 +20,7 @@ namespace MWeatherApp.MVVM.ViewModels
         private readonly KeyService _keyService;
         private readonly OpenAIService _openAIService;
         private readonly WelcomeViewModel _welcomeViewModel;
+        private readonly SharedService _sharedService;
         [ObservableProperty]
         private LocationModel? cityDetails;
 
@@ -35,6 +36,9 @@ namespace MWeatherApp.MVVM.ViewModels
 
         [ObservableProperty]
         private string? cityName;
+
+        [ObservableProperty]
+        private string? errorMessage;
 
         [ObservableProperty]
         private bool weatherInformationIsReady = false;
@@ -54,7 +58,7 @@ namespace MWeatherApp.MVVM.ViewModels
         [ObservableProperty]
         private string? cityDescription;
 
-        public HomeViewModel(GetService getService, KeyService keyService, OpenAIService openAIService, WelcomeViewModel welcomeViewModel)
+        public HomeViewModel(GetService getService, KeyService keyService, OpenAIService openAIService, WelcomeViewModel welcomeViewModel, SharedService sharedService)
         {
             ForecastModels = [];
             DailyForecasts = [];
@@ -62,6 +66,7 @@ namespace MWeatherApp.MVVM.ViewModels
             _keyService = keyService;
             _openAIService = openAIService;
             _welcomeViewModel = welcomeViewModel;
+            _sharedService = sharedService;
         }
 
         public async Task InitializeAsync()
@@ -104,7 +109,18 @@ namespace MWeatherApp.MVVM.ViewModels
             if (string.IsNullOrEmpty(CityName)) return;
 
             CityDetails = await _getService.GetCityDetails<LocationModel>(EndPoints.cityDetail, CityName);
-            await GetCityWeather();
+
+            if (CityDetails == null)
+            {
+                ErrorMessage = "Error: Please check your APi key or the try again.";
+                await ErrorOccured();
+            }
+            else
+            {
+                await GetCityWeather();
+            }
+
+
         }
 
         private async Task GetCityWeather()
@@ -112,6 +128,15 @@ namespace MWeatherApp.MVVM.ViewModels
             if (CityDetails?.Key == null) return;
 
             OneLocation = await _getService.GetCityWeather<OneLocation>(EndPoints.cityWeather, CityDetails.Key);
+
+            if (OneLocation == null)
+            {
+
+                ErrorMessage = "Error: Please check your APi key or the try again.";
+                await ErrorOccured();
+
+            }
+
             await GetCityForecast();
         }
 
@@ -120,6 +145,14 @@ namespace MWeatherApp.MVVM.ViewModels
             if (CityDetails?.Key == null) return;
 
             var result = await _getService.GetListOfForecast<WeatherForecastModel>(EndPoints.forecastEndpoint, CityDetails.Key);
+
+            if (result == null)
+            {
+
+                ErrorMessage = "Error: Please check your APi key or the try again.";
+                await ErrorOccured();
+
+            }
 
             ForecastModels = result;
 
@@ -141,6 +174,12 @@ namespace MWeatherApp.MVVM.ViewModels
                 }
             }
 
+            if (result == null)
+            {
+                ErrorMessage = "Error: Please check your APi key or the try again.";
+                await ErrorOccured();
+
+            }
 
             WeatherInformationLoading = false;
             WeatherInformationIsReady = true;
@@ -149,15 +188,20 @@ namespace MWeatherApp.MVVM.ViewModels
 
 
         [RelayCommand]
-        private void SettingIcon()
+        private async void SettingIcon()
         {
-            
-            var welcomeNavigationPage = new NavigationPage(new WelcomePage(_welcomeViewModel));
 
-            Application.Current.MainPage = welcomeNavigationPage;
+            await Shell.Current.GoToAsync($"{nameof(WelcomePage)}?OpenApiErrorMessage={ErrorMessage}", true);
+        }
+
+        private async Task ErrorOccured()
+        {
+
+            await Shell.Current.GoToAsync($"{nameof(WelcomePage)}?OpenApiErrorMessage={ErrorMessage}", true);
+
         }
 
 
-
     }
+
 }

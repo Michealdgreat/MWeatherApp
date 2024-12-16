@@ -18,50 +18,37 @@
   Shell.NavBarIsVisible="False"
   mc:Ignorable="d">
   <ContentPage.Behaviors>
-    <toolkit:StatusBarBehavior
-      StatusBarColor="#C6EEF0"
-      StatusBarStyle="{AppThemeBinding Dark='DarkContent', Light='LightContent'}" />
+    <toolkit:StatusBarBehavior StatusBarColor="#C6EEF0" StatusBarStyle="{AppThemeBinding Dark='DarkContent', Light='LightContent'}" />
   </ContentPage.Behaviors>
   <ContentPage.Resources>
     <ResourceDictionary>
-      <services:StringConverters
-        x:Key="TakeFirstThreeLetters" />
-      <services:FahrenheitToCelsiusConverter
-        x:Key="FahrenheitToCelsiusConverter" />
+      <services:StringConverters x:Key="TakeFirstThreeLetters" />
+      <services:FahrenheitToCelsiusConverter x:Key="FahrenheitToCelsiusConverter" />
+      <services:StringToUriConverter x:Key="StringToUriConverter" />
+
     </ResourceDictionary>
   </ContentPage.Resources>
-  <ScrollView
-    HorizontalScrollBarVisibility="Never"
-    VerticalScrollBarVisibility="Never">
+  <ScrollView HorizontalScrollBarVisibility="Never" VerticalScrollBarVisibility="Never">
 
     <Grid>
       <Grid.Background>
-        <LinearGradientBrush
-          StartPoint="0,0"
-          EndPoint="1,1">
-          <GradientStop
-            Offset="0.2"
-            Color="#C6EEF0" />
-          <GradientStop
-            Offset="0.5"
-            Color="#D7CACA" />
-          <GradientStop
-            Offset="1.1"
-            Color="#C6EEF0" />
+        <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+          <GradientStop Offset="0.2" Color="#C6EEF0" />
+          <GradientStop Offset="0.5" Color="#D7CACA" />
+          <GradientStop Offset="1.1" Color="#C6EEF0" />
         </LinearGradientBrush>
       </Grid.Background>
 
-      <Grid
-        IsVisible="{Binding WeatherInformationLoading}">
+      <Grid IsVisible="{Binding WeatherInformationLoading}">
 
         <skia:SKLottieView
           Padding="0"
           HeightRequest="20"
+          HorizontalOptions="Center"
           Opacity="1"
           RepeatCount="-1"
           RepeatMode="Restart"
           Scale="2"
-          HorizontalOptions="Center"
           Source="loadingorange.json"
           VerticalOptions="Center" />
 
@@ -79,29 +66,17 @@
         Source="winteranimationtwo.json"
         VerticalOptions="Start" />
 
-      <BoxView
-        IsVisible="{Binding WeatherInformationIsReady}"
-        Opacity=".5">
+      <BoxView IsVisible="{Binding WeatherInformationIsReady}" Opacity=".5">
         <BoxView.Background>
-          <LinearGradientBrush
-            StartPoint="0,0"
-            EndPoint="1,1">
-            <GradientStop
-              Offset="0.2"
-              Color="#C6EEF0" />
-            <GradientStop
-              Offset="0.5"
-              Color="#D7CACA" />
-            <GradientStop
-              Offset="1.1"
-              Color="#C6EEF0" />
+          <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+            <GradientStop Offset="0.2" Color="#C6EEF0" />
+            <GradientStop Offset="0.5" Color="#D7CACA" />
+            <GradientStop Offset="1.1" Color="#C6EEF0" />
           </LinearGradientBrush>
         </BoxView.Background>
       </BoxView>
 
-      <StackLayout
-        IsVisible="{Binding WeatherInformationIsReady}"
-        Spacing="-20">
+      <StackLayout IsVisible="{Binding WeatherInformationIsReady}" Spacing="-20">
 
         <!--#region TODAY-->
         <Label
@@ -120,9 +95,12 @@
           Text="{Binding CurrentDate}"
           TextColor="{StaticResource Black}" />
 
-        <Image Margin="0,-20,30,0" VerticalOptions="Start" HorizontalOptions="End">
+        <Image
+          Margin="0,-20,30,0"
+          HorizontalOptions="End"
+          VerticalOptions="Start">
           <Image.GestureRecognizers>
-            <TapGestureRecognizer Command="{ Binding SettingIconCommand}" />
+            <TapGestureRecognizer Command="{Binding SettingIconCommand}" />
           </Image.GestureRecognizers>
           <Image.Source>
             <FontImageSource
@@ -135,9 +113,7 @@
         <!--#endregion-->
 
         <!--#region CITY NAME-->
-        <Image
-          Margin="0,30,0,30"
-          HorizontalOptions="Center">
+        <Image Margin="0,30,0,30" HorizontalOptions="Center">
           <Image.Source>
             <FontImageSource
               FontFamily="mweatherappicons"
@@ -158,8 +134,7 @@
         <!--#endregion-->
 
         <!--#region TEMPERATURE-->
-        <HorizontalStackLayout
-          HorizontalOptions="Center">
+        <HorizontalStackLayout HorizontalOptions="Center">
           <Label
             FontFamily="RubikSemiBold"
             FontSize="170"
@@ -194,7 +169,7 @@
             <Button
               Margin="0,20,0,0"
               Padding="10,0,10,0"
-              BackgroundColor="#98035987"
+              BackgroundColor="#035987"
               FontFamily="RubikMedium"
               HeightRequest="20"
               HorizontalOptions="CenterAndExpand"
@@ -203,8 +178,7 @@
 
 
           </toolkit:Expander.Header>
-          <VerticalStackLayout
-            Padding="10">
+          <VerticalStackLayout Padding="10">
             <Label
               CharacterSpacing="0.2"
               FontFamily="RubikLight"
@@ -221,18 +195,13 @@
         <!--#endregion-->
 
         <!--#region FORCASE REGION-->
-        <CollectionView
-          Margin="10,40,10,20"
-          ItemsSource="{Binding ForecastModels}">
+        <CollectionView Margin="10,40,10,20" ItemsSource="{Binding ForecastModels}">
           <CollectionView.ItemsLayout>
-            <LinearItemsLayout
-              Orientation="Horizontal" />
+            <LinearItemsLayout Orientation="Horizontal" />
           </CollectionView.ItemsLayout>
           <CollectionView.ItemTemplate>
-            <DataTemplate
-              x:DataType="models:WeatherForecastModel">
-              <StackLayout
-                Padding="10">
+            <DataTemplate x:DataType="models:WeatherForecastModel">
+              <StackLayout Padding="10">
                 <Label
                   FontFamily="InterBold"
                   FontSize="Body"
@@ -246,12 +215,7 @@
                   Text="{Binding Temperature.Value, Converter={StaticResource FahrenheitToCelsiusConverter}}"
                   TextColor="{StaticResource Black}" />
 
-
-
-                <Image
-                  HorizontalOptions="Center"
-                  Source="precipitation"
-                  WidthRequest="20" />
+                <Image Source="{Binding IconPhrase, Converter={StaticResource StringToUriConverter}}" WidthRequest="30" />
 
                 <Label
                   FontFamily="Interlight"
@@ -282,8 +246,7 @@
           BackgroundColor="#22C6EEF0"
           Stroke="#45FFFFFF">
           <Border.StrokeShape>
-            <RoundRectangle
-              CornerRadius="10" />
+            <RoundRectangle CornerRadius="10" />
           </Border.StrokeShape>
 
           <VerticalStackLayout>
@@ -294,61 +257,54 @@
               FontSize="Large"
               HorizontalOptions="Start"
               Text="Next days"
-              TextColor="#82035987" />
+              TextColor="#035987" />
 
-            <CollectionView
-              Margin="10,20,10,20"
-              ItemsSource="{Binding DailyForecasts}">
+            <CollectionView Margin="10,20,10,20" ItemsSource="{Binding DailyForecasts}">
               <CollectionView.ItemsLayout>
-                <LinearItemsLayout
-                  Orientation="Vertical" />
+                <LinearItemsLayout Orientation="Vertical" />
               </CollectionView.ItemsLayout>
               <CollectionView.ItemTemplate>
-                <DataTemplate
-                  x:DataType="models:DailyForecast">
+                <DataTemplate x:DataType="models:DailyForecast">
 
-                  <Grid
-                    ColumnDefinitions=".3*,.7*"
-                    ColumnSpacing="10">
+                  <Grid ColumnDefinitions=".3*,.7*" ColumnSpacing="10">
 
                     <Border
                       Margin="0,0,0,10"
                       Padding="10"
-                      BackgroundColor="#22C6EEF0"
+                      BackgroundColor="#2241898D"
                       Stroke="#45FFFFFF">
                       <Border.StrokeShape>
-                        <RoundRectangle
-                          CornerRadius="10" />
+                        <RoundRectangle CornerRadius="10" />
                       </Border.StrokeShape>
-                      <Image
-                        Source="precipitation"
-                        WidthRequest="40" />
+
+                      <Grid>
+
+                        <Image Source="{Binding Day.IconPhrase, Converter={StaticResource StringToUriConverter}}" WidthRequest="50" />
+
+                      </Grid>
+
                     </Border>
 
                     <Border
                       Grid.Column="1"
                       Margin="0,0,0,10"
                       Padding="10"
-                      BackgroundColor="#22C6EEF0"
+                      BackgroundColor="#2241898D"
                       Stroke="#65FFFFFF">
 
 
                       <Border.StrokeShape>
-                        <RoundRectangle
-                          CornerRadius="10" />
+                        <RoundRectangle CornerRadius="10" />
                       </Border.StrokeShape>
 
-                      <StackLayout
-                        Padding="10"
-                        HorizontalOptions="StartAndExpand">
+                      <StackLayout Padding="10" HorizontalOptions="StartAndExpand">
                         <Label
                           FontFamily="InterBold"
                           FontSize="Body"
                           Text="{Binding Date, StringFormat='{}{0:dddd, d MMM}'}"
                           TextColor="{StaticResource PrimaryDark}" />
 
-                        <HorizontalStackLayout
-                          HorizontalOptions="Start">
+                        <HorizontalStackLayout HorizontalOptions="Start">
                           <Label
                             FontFamily="RubikMedium"
                             FontSize="Body"
