@@ -162,7 +162,7 @@
           <EntryHelper:EntryHelper
             FontSize="20"
             HorizontalOptions="Center"
-            Placeholder="Enter your city"
+            Placeholder="Enter any city"
             PlaceholderColor="{StaticResource Gray300}"
             Text="{Binding CityName}"
             TextColor="Black" />

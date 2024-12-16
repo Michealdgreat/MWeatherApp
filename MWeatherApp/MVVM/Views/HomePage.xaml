@@ -165,17 +165,46 @@
 
         <toolkit:Expander>
           <toolkit:Expander.Header>
+            <StackLayout>
 
-            <Button
-              Margin="0,20,0,0"
-              Padding="10,0,10,0"
-              BackgroundColor="#035987"
-              FontFamily="RubikMedium"
-              HeightRequest="20"
-              HorizontalOptions="CenterAndExpand"
-              Text="{Binding CityDetails.LocalizedName, StringFormat='Tell me about  {0}'}"
-              TextColor="White" />
+              <Border
+                Margin="20"
+                Padding="0"
+                HeightRequest="50"
+                Stroke="#45FFFFFF"
+                WidthRequest="200">
+                <Border.StrokeShape>
+                  <RoundRectangle CornerRadius="10" />
+                </Border.StrokeShape>
 
+                <Grid>
+                  <skia:SKLottieView
+                    Grid.Row="0"
+                    Grid.Column="0"
+                    Padding="0"
+                    HeightRequest="100"
+                    HorizontalOptions="Center"
+                    IsClippedToBounds="True"
+                    Opacity="1"
+                    RepeatCount="-1"
+                    RepeatMode="Restart"
+                    Scale="4"
+                    Source="aigradient.json"
+                    VerticalOptions="Center" />
+
+                  <BoxView BackgroundColor="#65035987" />
+                  <Label
+                    BackgroundColor="#00035987"
+                    FontFamily="RubikMedium"
+                    FontSize="Body"
+                    HorizontalOptions="CenterAndExpand"
+                    Text="{Binding CityDetails.LocalizedName, StringFormat='Tell me about  {0}'}"
+                    TextColor="White"
+                    VerticalOptions="Center" />
+                </Grid>
+
+              </Border>
+            </StackLayout>
 
           </toolkit:Expander.Header>
           <VerticalStackLayout Padding="10">
