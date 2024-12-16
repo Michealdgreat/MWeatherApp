@@ -1,16 +1,18 @@
 # MWeatherApp
 
-MWeatherApp is a cross-platform weather application built with [.NET MAUI](https://learn.microsoft.com/en-us/dotnet/maui/what-is-maui), Utilizing the MVVM architectural pattern. This app provides real-time weather information using the [AccuWeather API](https://developer.accuweather.com/) and integrates AI services to offer detailed insights about cities. Sensitive data such as API keys are securely stored using Keychain (iOS) and Secure Storage (Android and Windows).
+MWeatherApp is a cross-platform weather application built with [.NET MAUI](https://learn.microsoft.com/en-us/dotnet/maui/what-is-maui), utilizing the MVVM architectural pattern. This app provides real-time weather information using the [AccuWeather API](https://developer.accuweather.com/) and integrates AI services to offer detailed insights about cities. Sensitive data such as API keys are securely stored using Keychain (iOS) and Secure Storage (Android and Windows).
 
 ## Table of Contents
 
 - [Features](#features)
+- [Releases](#releases)
 - [Getting Started](#getting-started)
   - [Prerequisites](#prerequisites)
   - [Installation](#installation)
   - [Configuration](#configuration)
 - [Architecture](#architecture)
 - [Technologies Used](#technologies-used)
+- [Video](#video)
 - [Screenshots](#screenshots)
 - [Contributing](#contributing)
 - [License](#license)
@@ -24,20 +26,52 @@ MWeatherApp is a cross-platform weather application built with [.NET MAUI](https
 - **Secure Storage**: Utilizes Keychain and Secure Storage for safeguarding API keys and sensitive data.
 - **.NET 9**: Built with the latest features and improvements of .NET 9.
 
+## Releases 
+
+You can download the latest release of MWeatherApp from the [Releases](https://github.com/Michealdgreat/MWeatherApp/releases) page.
+
+### Download and Installation
+
+#### Android
+
+- **Download**: Get the latest APK file (`MWeatherApp.apk`) from the [Releases](https://github.com/Michealdgreat/MWeatherApp/releases) page.
+- **Install**:
+  - Transfer the APK to your Android device.
+  - On your device, go to **Settings > Security**, and enable **Unknown Sources** to allow installation from non-Google Play sources.
+  - Open a file manager and navigate to the APK file.
+  - Tap on the APK file to install.
+- **First Run**: Launch the app, goto settings and enter your AccuWeather API key.
+
+### Important Notes
+
+- **AccuWeather API Key**: To use the weather features, you **must** provide your own AccuWeather API key in the application settings.
+- **AI-Powered Features**: The OpenAI API key is already embedded in the app for AI-powered city details. You do not need to provide or configure an OpenAI API key.
+- **Release APK Package**: The release APK package has a built-in OpenAI API key for AI features, but you still need an AccuWeather API key to use weather features.
+
+#### How to Get an AccuWeather API Key
+
+1. **Sign Up**: Visit the [AccuWeather Developer Portal](https://developer.accuweather.com/) and sign up for a free account.
+2. **Create an App**: After logging in, navigate to **My Apps** and create a new application.
+3. **Obtain API Key**: Once your application is created, you will be provided with an API key.
+4. **Enter in App**: Enter this API key into the MWeatherApp when prompted.
+
+> **Security**: Your AccuWeather API key is stored securely on your device using the platform's secure storage mechanism (Keychain on iOS/macOS, Keystore on Android, and Protected Storage on Windows).
+
 ## Getting Started
 
 ### Prerequisites
 
-- **.NET 9 SDK**: Install from [.NET Downloads](https://dotnet.microsoft.com/download/dotnet/9.0).
+If you prefer to build the app from source instead of downloading a pre-built release, ensure you have the following:
+
+- **.NET 9 SDK**: Install the latest version from [.NET Downloads](https://dotnet.microsoft.com/download/dotnet/9.0).
 - **.NET MAUI Workload**: Install using the command:
 
   ```bash
   dotnet workload install maui
   ```
 
-- **AccuWeather API Key**: Sign up at [AccuWeather Developer Portal](https://developer.accuweather.com/) to obtain an API key.
-- **AI Service API Key**: Obtain API keys for AI services (e.g., OpenAI) if using AI features (App work with out AI Key).
-- **Realease apk package has a built-In API key**: But you still need Acuweather Api key to use weather features.
+- **AccuWeather API Key**: Obtain an API key from [AccuWeather Developer Portal](https://developer.accuweather.com/).
+- **AI Service API Key**: Obtain API keys for AI services (e.g., OpenAI) if using AI features (app works without AI key but with limited features).
 
 ### Installation
 
@@ -67,7 +101,7 @@ The application uses secure storage mechanisms to store API keys. Follow the ste
 
 1. **First-Time Setup Dialog**
 
-   - When you run the app for the first time, a setup dialog will prompt you to enter your AccuWeather API key and AI service API key.
+   - When you run the app for the first time, a setup dialog will prompt you to enter your AccuWeather API key and AI service API key (optional).
    - The keys will be securely stored using Keychain (iOS) or Secure Storage (Android and Windows).
 
 2. **Manual Configuration (Optional)**
@@ -130,18 +164,19 @@ This separation allows for a clear organization of code, easier maintenance, and
 
 ## Screenshots
 
-<img src="MWeatherApp/Documentation/appscreenshot1.jpg" alt="screenshot" width="200"/>
-<img src="MWeatherApp/Documentation/appscreenshot2.jpg" alt="screenshot" width="200"/>
-<img src="MWeatherApp/Documentation/appscreenshot3.jpg" alt="screenshot" width="200"/>
-<img src="MWeatherApp/Documentation/appscreenshot4.jpg" alt="screenshot" width="200"/>
-<img src="MWeatherApp/Documentation/appscreenshot7.jpg" alt="screenshot" width="200"/>
-<img src="MWeatherApp/Documentation/appscreenshot6.jpg" alt="screenshot" width="200"/>
-<img src="MWeatherApp/Documentation/appscreenshot8.jpg" alt="screenshot" width="200"/>
-<img src="MWeatherApp/Documentation/appscreenshot9.jpg" alt="screenshot" width="200"/>
-<img src="MWeatherApp/Documentation/appscreenshot11.jpg" alt="screenshot" width="200"/>
-<img src="MWeatherApp/Documentation/appscreenshot14.jpg" alt="screenshot" width="200"/>
-<img src="MWeatherApp/Documentation/appscreenshot16.jpg" alt="screenshot" width="200"/>
-
+<p align="center">
+  <img src="MWeatherApp/Documentation/appscreenshot1.jpg" alt="Screenshot 1" width="200"/>
+  <img src="MWeatherApp/Documentation/appscreenshot2.jpg" alt="Screenshot 2" width="200"/>
+  <img src="MWeatherApp/Documentation/appscreenshot3.jpg" alt="Screenshot 3" width="200"/>
+  <img src="MWeatherApp/Documentation/appscreenshot4.jpg" alt="Screenshot 4" width="200"/>
+  <img src="MWeatherApp/Documentation/appscreenshot7.jpg" alt="Screenshot 5" width="200"/>
+  <img src="MWeatherApp/Documentation/appscreenshot6.jpg" alt="Screenshot 6" width="200"/>
+  <img src="MWeatherApp/Documentation/appscreenshot8.jpg" alt="Screenshot 7" width="200"/>
+  <img src="MWeatherApp/Documentation/appscreenshot9.jpg" alt="Screenshot 8" width="200"/>
+  <img src="MWeatherApp/Documentation/appscreenshot11.jpg" alt="Screenshot 9" width="200"/>
+  <img src="MWeatherApp/Documentation/appscreenshot14.jpg" alt="Screenshot 10" width="200"/>
+  <img src="MWeatherApp/Documentation/appscreenshot16.jpg" alt="Screenshot 11" width="200"/>
+</p>
 
 ## Contributing
 
@@ -154,7 +189,7 @@ Contributions are welcome! Here's how you can help:
 2. **Clone Your Fork**
 
    ```bash
-   git clone https://github.com/Michealdgreat/MWeatherApp.git
+   git clone https://github.com/yourusername/MWeatherApp.git
    ```
 
 3. **Create a Feature Branch**
@@ -181,7 +216,7 @@ Contributions are welcome! Here's how you can help:
 
 ## License
 
-This project is licensed under the MIT License - see the LICENSE file for details.
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
 ---
 
