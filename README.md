@@ -124,6 +124,10 @@ This separation allows for a clear organization of code, easier maintenance, and
 - **AI Integration**: Enhances city information using AI services.
 - **Keychain/Secure Storage**: Protects sensitive information across platforms.
 
+## Video
+
+[DOWNLOAD APP DEMO VIDEO](MWeatherApp/Documentation/Screen_Recording.mp4)
+
 ## Screenshots
 
 <img src="MWeatherApp/Documentation/appscreenshot1.jpg" alt="screenshot" width="200"/>
