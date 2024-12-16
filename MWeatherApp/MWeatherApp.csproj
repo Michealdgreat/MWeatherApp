@@ -70,6 +70,25 @@
 	</ItemGroup>
 
 	<ItemGroup>
+		<Content Include="Documentation\appscreenshot1.jpg" />
+		<Content Include="Documentation\appscreenshot10.jpg" />
+		<Content Include="Documentation\appscreenshot11.jpg" />
+		<Content Include="Documentation\appscreenshot12.jpg" />
+		<Content Include="Documentation\appscreenshot13.jpg" />
+		<Content Include="Documentation\appscreenshot14.jpg" />
+		<Content Include="Documentation\appscreenshot15.jpg" />
+		<Content Include="Documentation\appscreenshot16.jpg" />
+		<Content Include="Documentation\appscreenshot2.jpg" />
+		<Content Include="Documentation\appscreenshot3.jpg" />
+		<Content Include="Documentation\appscreenshot4.jpg" />
+		<Content Include="Documentation\appscreenshot5.jpg" />
+		<Content Include="Documentation\appscreenshot6.jpg" />
+		<Content Include="Documentation\appscreenshot7.jpg" />
+		<Content Include="Documentation\appscreenshot8.jpg" />
+		<Content Include="Documentation\appscreenshot9.jpg" />
+	</ItemGroup>
+
+	<ItemGroup>
 		<PackageReference Include="AcrylicView.Maui" Version="2.1.3" />
 		<PackageReference Include="AsyncAwaitBestPractices" Version="9.0.0" />
 		<PackageReference Include="Azure.AI.OpenAI" Version="2.1.0" />
