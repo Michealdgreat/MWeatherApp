@@ -26,7 +26,7 @@ MWeatherApp is a cross-platform weather application built with [.NET MAUI](https
 - **Secure Storage**: Utilizes Keychain and Secure Storage for safeguarding API keys and sensitive data.
 - **.NET 9**: Built with the latest features and improvements of .NET 9.
 
-## Releases 
+## Releases - Try it on your phone
 
 You can download the latest release of MWeatherApp from the [Releases](MWeatherApp/Documentation/com.micheal.mweatherapp-Signed.apk) page.
 
