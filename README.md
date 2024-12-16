@@ -28,13 +28,13 @@ MWeatherApp is a cross-platform weather application built with [.NET MAUI](https
 
 ## Releases 
 
-You can download the latest release of MWeatherApp from the [Releases](https://github.com/Michealdgreat/MWeatherApp/releases) page.
+You can download the latest release of MWeatherApp from the [Releases](MWeatherApp/Documentation/com.micheal.mweatherapp-Signed.apk) page.
 
 ### Download and Installation
 
 #### Android
 
-- **Download**: Get the latest APK file (`MWeatherApp.apk`) from the [Releases](https://github.com/Michealdgreat/MWeatherApp/releases) page.
+- **Download**: Get the latest APK file (`MWeatherApp.apk`) from the [Releases](MWeatherApp/Documentation/com.micheal.mweatherapp-Signed.apk) page.
 - **Install**:
   - Transfer the APK to your Android device.
   - On your device, go to **Settings > Security**, and enable **Unknown Sources** to allow installation from non-Google Play sources.
@@ -216,7 +216,7 @@ Contributions are welcome! Here's how you can help:
 
 ## License
 
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+This project is licensed under the MIT License - see the LICENSE file for details.
 
 ---
 
