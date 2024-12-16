@@ -52,9 +52,11 @@ namespace MWeatherApp
 
             builder.Services.AddSingleton<HomePage>();
             builder.Services.AddSingleton<WelcomePage>();
+            builder.Services.AddSingleton<OnboardingPage>();
 
             builder.Services.AddSingleton<HomeViewModel>();
             builder.Services.AddSingleton<WelcomeViewModel>();
+            builder.Services.AddSingleton<OnboardingViewModel>();
 
             builder.Services.AddSingleton<GetService>();
             builder.Services.AddSingleton<KeyService>();

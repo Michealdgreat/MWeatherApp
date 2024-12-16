@@ -37,7 +37,7 @@ namespace MWeatherApp
 
         protected override Window CreateWindow(IActivationState? activationState)
         {
-            return new Window(new WelcomePage(_welcomeViewModel));
+            return new Window(new AppShell());
         }
     }
 }
