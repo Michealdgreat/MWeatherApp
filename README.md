@@ -126,7 +126,18 @@ This separation allows for a clear organization of code, easier maintenance, and
 
 ## Screenshots
 
-*(Include screenshots of the application running on different platforms)*
+<img src="MWeatherApp/Documentation/appscreenshot1.jpg" alt="screenshot" width="200"/>
+<img src="MWeatherApp/Documentation/appscreenshot2.jpg" alt="screenshot" width="200"/>
+<img src="MWeatherApp/Documentation/appscreenshot3.jpg" alt="screenshot" width="200"/>
+<img src="MWeatherApp/Documentation/appscreenshot4.jpg" alt="screenshot" width="200"/>
+<img src="MWeatherApp/Documentation/appscreenshot7.jpg" alt="screenshot" width="200"/>
+<img src="MWeatherApp/Documentation/appscreenshot6.jpg" alt="screenshot" width="200"/>
+<img src="MWeatherApp/Documentation/appscreenshot8.jpg" alt="screenshot" width="200"/>
+<img src="MWeatherApp/Documentation/appscreenshot9.jpg" alt="screenshot" width="200"/>
+<img src="MWeatherApp/Documentation/appscreenshot11.jpg" alt="screenshot" width="200"/>
+<img src="MWeatherApp/Documentation/appscreenshot14.jpg" alt="screenshot" width="200"/>
+<img src="MWeatherApp/Documentation/appscreenshot16.jpg" alt="screenshot" width="200"/>
+
 
 ## Contributing
 
