@@ -1,6 +1,6 @@
 # MWeatherApp
 
-MWeatherApp is a cross-platform weather application built with [.NET MAUI](https://learn.microsoft.com/en-us/dotnet/maui/what-is-maui), Utilizing the MVVM architectural pattern. The app provides real-time weather information using the [AccuWeather API](https://developer.accuweather.com/) and integrates AI services to offer detailed insights about cities. Sensitive data such as API keys are securely stored using Keychain (iOS) and Secure Storage (Android and Windows).
+MWeatherApp is a cross-platform weather application built with [.NET MAUI](https://learn.microsoft.com/en-us/dotnet/maui/what-is-maui), Utilizing the MVVM architectural pattern. This app provides real-time weather information using the [AccuWeather API](https://developer.accuweather.com/) and integrates AI services to offer detailed insights about cities. Sensitive data such as API keys are securely stored using Keychain (iOS) and Secure Storage (Android and Windows).
 
 ## Table of Contents
 
@@ -36,7 +36,8 @@ MWeatherApp is a cross-platform weather application built with [.NET MAUI](https
   ```
 
 - **AccuWeather API Key**: Sign up at [AccuWeather Developer Portal](https://developer.accuweather.com/) to obtain an API key.
-- **AI Service API Key**: Obtain API keys for AI services (e.g., Azure Cognitive Services) if using AI features.
+- **AI Service API Key**: Obtain API keys for AI services (e.g., OpenAI) if using AI features (App work with out AI Key).
+- **Realease apk package has a built-In API key**: But you still need Acuweather Api key to use weather features.
 
 ### Installation
 
@@ -116,7 +117,7 @@ This separation allows for a clear organization of code, easier maintenance, and
 
 ## Technologies Used
 
-- **.NET 9**: Utilizing the latest features and enhancements.
+- **.NET 9**: Utilizing the latest features and enhancements available in the latest version of the framework.
 - **.NET MAUI**: For building cross-platform native applications.
 - **MVVM Toolkit**: Simplifies the implementation of the MVVM pattern.
 - **AccuWeather API**: Provides comprehensive weather data.
